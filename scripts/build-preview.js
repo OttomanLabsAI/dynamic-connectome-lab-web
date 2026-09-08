@@ -47,6 +47,8 @@ function inlinePage(route) {
   });
   // scripts
   html = html.replace(/<script[^>]+src="([^"]+)"[^>]*><\/script>/g, (m, src) => /^https?:/.test(src) ? m : `<script>document.addEventListener('DOMContentLoaded',function(){\n${read(src).toString('utf8')}\n});</script>`);
+  // the tractogram needs its 6 MB of streamlines: point the offline copy at a message instead
+  html = html.replace(/data-tract="[^"]+"/, 'data-tract="offline"');
   // favicon
   html = html.replace(/<link rel="icon" href="\/favicon\.svg"[^>]*>/, `<link rel="icon" href="${dataUri('/favicon.svg')}" type="image/svg+xml">`);
   // internal links → postMessage to the shell

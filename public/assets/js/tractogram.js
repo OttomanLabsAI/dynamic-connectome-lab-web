@@ -73,6 +73,7 @@
   if (spinBtn) spinBtn.addEventListener('click', function () { setSpin(!spinning); });
 
   async function boot() {
+    if (TRACT === 'offline') { say('The interactive brain model (6 MB) plays on the hosted demo, not in this offline copy.'); if (spinBtn) spinBtn.hidden = true; return; }
     try {
       say('Loading the viewer…');
       await loadScript(LIB);
