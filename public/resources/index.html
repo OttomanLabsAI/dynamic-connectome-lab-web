@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Resources — Dynamic Connectome Lab</title>
+  <meta name="description" content="Lab facilities, open datasets (C. elegans, macaque cortex, highway and airline networks) and program code (VERTEX, BioDynaMo, SINOMO and more) from the Dynamic Connectome Lab.">
+  <meta name="theme-color" content="#10263B">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/fonts/fonts.css">
+  <link rel="stylesheet" href="/assets/css/site.css">
+</head>
+<body>
+<style id="pitch-bar-css">
+  #pitch-bar{position:fixed;top:0;left:0;right:0;z-index:2147483000;
+    box-sizing:border-box;display:flex;align-items:center;gap:6px;height:48px;
+    padding:0 12px;background:#0c0c0c;color:#eee;
+    font:600 13px/1 system-ui,-apple-system,"Segoe UI",sans-serif;
+    border-bottom:2px solid var(--pitch-accent,#e8b33a)}
+  #pitch-bar *{box-sizing:border-box;margin:0}
+  #pitch-bar .pitch-chip{background:var(--pitch-accent,#e8b33a);color:#0c0c0c;
+    font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+    padding:4px 7px;border-radius:3px;margin-right:6px;flex:none}
+  #pitch-bar a{color:#bdbdbd;text-decoration:none;padding:16px 10px 14px;
+    white-space:nowrap;border-bottom:3px solid transparent}
+  #pitch-bar a:hover{color:#fff}
+  #pitch-bar a[aria-current="page"]{color:#fff;
+    border-bottom-color:var(--pitch-accent,#e8b33a)}
+  body{padding-top:48px !important}
+  @media (max-width:479px){
+    #pitch-bar{padding:0 6px;gap:2px}
+    #pitch-bar a{padding:16px 7px 14px;font-size:12px}
+    #pitch-bar .pitch-chip{margin-right:2px}
+  }
+</style>
+<nav id="pitch-bar" aria-label="Demo pages">
+  <span class="pitch-chip">Demo</span>
+  <a href="/" aria-current="page">New site</a>
+  <a href="/original/">Current site</a>
+  <a href="/offer/">The offer</a>
+</nav>
+
+<style id="pitch-bar-offset">.site-header{top:48px}.skip:focus{top:104px}</style>
+
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/"><svg viewBox="0 0 40 40" aria-hidden="true" focusable="false">
+  <g stroke="#37B4B0" stroke-width="1.4" fill="none" opacity=".9">
+    <path d="M8 26 L18 10 L31 14 L27 30 L8 26 Z M18 10 L27 30 M8 26 L31 14 M13 18 L22 21 L27 30 M22 21 L18 10"/>
+  </g>
+  <g fill="#DEB406"><circle cx="8" cy="26" r="3"/><circle cx="31" cy="14" r="3"/><circle cx="27" cy="30" r="3"/></g>
+  <g fill="#fff"><circle cx="18" cy="10" r="3.2"/><circle cx="13" cy="18" r="2.2"/><circle cx="22" cy="21" r="4"/></g>
+</svg><span>Dynamic Connectome Lab<small>University of Nottingham</small></span></a>
+    <input class="nav-toggle" type="checkbox" id="nav-toggle" aria-hidden="true">
+    <label class="nav-btn" for="nav-toggle" aria-label="Menu">Menu</label>
+    <nav class="site-nav" aria-label="Site">
+      <ul><li><a href="/">Home</a></li><li><a href="/team/">Team</a></li><li><a href="/research/">Research</a></li><li><a href="/publications/">Publications</a></li><li><a href="/resources/" aria-current="page">Resources</a></li><li><a href="/join-us/">Join us</a></li><li><a href="/contact/">Contact</a></li></ul>
+    </nav>
+  </div>
+</header>
+<main id="main">
+
+<section class="hero-inner on-dark">
+  <div class="wrap">
+    <p class="kicker">Resources</p>
+    <h1>Resources</h1>
+    <p class="lede">What the lab works with, and what it shares: facilities, six datasets and eight code packages.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <ul class="subnav" aria-label="On this page"><li><a href="#facilities">Lab facilities</a></li><li><a href="#datasets">Data sets</a></li><li><a href="#code">Program code</a></li></ul>
+    <div class="section-head" id="facilities"><h2>Lab resources</h2></div>
+    <div class="grid">
+      <div class="card"><span class="tag">Stimulation</span><h3>Neuromodulation</h3>
+        <p>Neuromodulation suite, next to the MRI Centre, with focused ultrasound (<a href="https://neurofus.com/" rel="noopener">NeuroFUS PRO</a>, one of three such systems at the university), vagus nerve ultrasound (NeurGear's <a href="https://zenbud.health/" rel="noopener">Zenbud</a>), transcranial magnetic stimulation (TMS), and temporal interference stimulation (TIS) neuromodulation systems.</p>
+        <p>For testing ultrasound output, we also have a water tank, hydrophones, and a robotic system to scan for acoustic pressure. We are part of the leadership team of the 30-faculty <a href="https://www.nottingham.ac.uk/science/research/n3centre/n3centre.aspx" rel="noopener">N3 Centre for Neurotechnology, Neuromodulation, and Neurotherapeutics</a>.</p></div>
+      <div class="card"><span class="tag">Imaging</span><h3>Neuroimaging and computing</h3>
+        <p>We have access to several human MRI scanners (3T, 7T, 10.7T) and have our own 32-channel Ant-Neuro EEG system. We also have access to the Imaging HPC system which includes high-memory nodes and multiple compute nodes, along with storage, for data processing.</p>
+        <p>The university is also hosting the <a href="https://mriuhf.ac.uk/" rel="noopener">National Centre for high-field MRI</a> including a 11.7T human MRI scanner.</p></div>
+      <div class="card"><span class="tag">Testing</span><h3>Cognitive and physiological testing</h3>
+        <p>The lab also includes facilities for assessing cognitive, psychometric, and physiological effects. This includes a Vive Pro Eye virtual reality system that allows for eye tracking and measurement of the pupil diameter. We can also look at physiological measures such as heart rate variability.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="band-panel">
+  <div class="wrap">
+    <div class="section-head" id="datasets"><h2>Data sets</h2><p class="muted">Please cite the source article when you use them</p></div>
+    <h3>Development of C. elegans</h3>
+    <div class="grid" style="margin:16px 0 36px">
+      <div class="card"><span class="tag">Dataset</span><h3>C. elegans neuronal birth times</h3>
+        <p>This zip file contains a comma-separated list (.csv) and a Matlab file (.mat) with the names of 279 neurones and their times of birth. Birth Time is in minutes obtained from Sulston et al. 1977 and 1983.</p>
+        <div class="dl card-foot"><a href="https://www.dynamic-connectome.org/pubs/suppl/celegans279dev.zip" rel="noopener">celegans279dev.zip</a></div>
+        <p class="cite-note">Cite: Varier S, Kaiser M (2011) Neural development features: Spatio-temporal development of the C. elegans neuronal network. PLoS Computational Biology 7:e1001044 (<a href="https://www.dynamic-connectome.org/pubs/Varier2011.pdf" rel="noopener">PDF</a>)</p></div>
+    </div>
+    <h3>Neuronal and cortical networks</h3>
+    <div class="grid" style="margin:16px 0 36px">
+      <div class="card"><span class="tag">Dataset</span><h3>Macaque cortical connectivity</h3>
+        <p>Macaque cortical connectivity network within one hemisphere. The files include the adjacency matrix, the labels of the cortical regions, and the spatial positions of the regions as three-dimensional coordinates (the unit is mm).</p>
+        <div class="dl card-foot"><a href="https://www.dynamic-connectome.org/pubs/suppl/mac95.mat" rel="noopener">mac95.mat</a><a href="https://www.dynamic-connectome.org/pubs/suppl/mac95.zip" rel="noopener">mac95.zip</a></div></div>
+      <div class="card"><span class="tag">Dataset</span><h3>C. elegans local network</h3>
+        <p>C. elegans local network of 131 frontal neurons. The files include the adjacency matrix, the labels of the neurons, and the spatial positions of the neurons as two-dimensional coordinates (unit is mm).</p>
+        <div class="dl card-foot"><a href="https://www.dynamic-connectome.org/pubs/suppl/celegans131.mat" rel="noopener">celegans131.mat</a><a href="https://www.dynamic-connectome.org/pubs/suppl/celegans131.zip" rel="noopener">celegans131.zip</a></div></div>
+      <div class="card"><span class="tag">Dataset</span><h3>C. elegans global network</h3>
+        <p>C. elegans global network of 277 neurons. The files include the adjacency matrix, the labels of the neurons, and the spatial positions of the neurons as two-dimensional coordinates (unit is mm).</p>
+        <div class="dl card-foot"><a href="https://www.dynamic-connectome.org/pubs/suppl/celegans277.mat" rel="noopener">celegans277.mat</a><a href="https://www.dynamic-connectome.org/pubs/suppl/celegans277.zip" rel="noopener">celegans277.zip</a></div></div>
+    </div>
+    <p class="cite-note" style="margin-bottom:36px">Cite: Kaiser M, Hilgetag CC (2006) Non-Optimal Component Placement, but Short Processing Paths, due to Long-Distance Projections in Neural Systems. PLoS Computational Biology 2:e95 (<a href="https://www.dynamic-connectome.org/pubs/Kaiser2006.pdf" rel="noopener">PDF</a>) · Kötter R (2004) Online retrieval, processing, and visualization of primate connectivity data from the CoCoMac database. Neuroinformatics 2:127-144 · Choe Y, McCormick BH, Koh W (2004) Network connectivity analysis on the temporally augmented C. elegans web: A pilot study. Society of Neuroscience Abstracts 30:921.9</p>
+    <h3>Artificial networks</h3>
+    <div class="grid" style="margin:16px 0 0">
+      <div class="card"><span class="tag">Dataset</span><h3>German highway system</h3>
+        <p>Contains Matlab file with the German highway system network (raw data from Autobahn-Informations-System, AIS from <a href="http://www.bast.de/" rel="noopener">www.bast.de</a>). It includes the adjacency matrix (value 1 if two locations are directly connected by a highway) and the labels of all 1,168 nodes.</p>
+        <div class="dl card-foot"><a href="https://www.dynamic-connectome.org/download/autobahn.zip" rel="noopener">autobahn.zip</a></div>
+        <p class="cite-note">Cite: Kaiser M., and Hilgetag C.-C. (2004) Spatial growth of real-world networks. Physical Review E 69:036103 (<a href="https://www.dynamic-connectome.org/pubs/Kaiser2004b.pdf" rel="noopener">PDF</a>)</p></div>
+      <div class="card"><span class="tag">Dataset</span><h3>Flight connections, top 500 airports</h3>
+        <p>Flight connections for the top 500 airports, based on total passenger volume, worldwide. The existence of flight connections between airports is based on flights within one year from 1 July 2007 to 30 June 2008. The zip file includes the matrix of connections between airports as well as a list of airport codes for each network node (csv files), and a Matlab .mat file with the same information.</p>
+        <div class="dl card-foot"><a href="https://www.dynamic-connectome.org/pubs/suppl/air500.zip" rel="noopener">air500.zip</a></div>
+        <p class="cite-note">Cite: Marcelino J. and Kaiser M. (2012) Critical paths in a metapopulation model of H1N1: Efficiently delaying influenza spreading through flight cancellation. PLoS Currents Influenza (<a href="https://www.dynamic-connectome.org/pubs/Marcelino2012PLoS_Currents.pdf" rel="noopener">PDF</a>)</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head" id="code"><h2>Program code</h2></div>
+    <div class="grid-4">
+      <div class="card"><span class="tag">Matlab / Octave</span><h3>VERTEX</h3><p>Matlab/Octave code for simulating activity and stimulation of brain tissue.</p><div class="dl card-foot"><a href="https://github.com/connectomelab/Vertex_git" rel="noopener">GitHub</a></div></div>
+      <div class="card"><span class="tag">Platform</span><h3>BioDynaMo</h3><p>Environment for simulating tissue development.</p><div class="dl card-foot"><a href="https://biodynamo.org/" rel="noopener">biodynamo.org</a></div></div>
+      <div class="card"><span class="tag">Matlab / Octave</span><h3>SINOMO — singular node motif detection</h3><p>Matlab/Octave code for detecting singular node motifs (characteristic nodes of a network). <a href="http://www.dynamic-connectome.org/pubs/suppl/sinomo/index.html" rel="noopener">Documentation of the routines</a>.</p><div class="dl card-foot"><a href="http://www.dynamic-connectome.org/pubs/suppl/sinomo/SINOMO.zip" rel="noopener">SINOMO.zip</a></div>
+        <p class="cite-note">Cite: Echtermeyer C, Rodriguez F, Costa FdL, Kaiser M (2011). Automatic network fingerprinting through singular node motifs. PLoS ONE 6(1):e15765 (<a href="https://www.dynamic-connectome.org/pubs/Echtermeyer2011.pdf" rel="noopener">PDF</a>) and Costa LdF, Rodrigues FA, Hilgetag CC, Kaiser M (2009). Beyond the average: detecting global singular nodes from local features in complex networks. Europhysics Letters 87:18008 (<a href="https://www.dynamic-connectome.org/pubs/Costa2009EPL.PDF" rel="noopener">PDF</a>)</p></div>
+      <div class="card"><span class="tag">Matlab</span><h3>Hierarchical networks</h3><p>Matlab code for generating hierarchical networks, simulating activity spreading, and calculating the proportion of simulation runs with limited sustained activity (LSA).</p><div class="dl card-foot"><a href="http://www.dynamic-connectome.org/pubs/suppl/Kaiser2010Frontiers.zip" rel="noopener">Kaiser2010Frontiers.zip</a></div>
+        <p class="cite-note">Used for: Marcus Kaiser and Claus Hilgetag (2010). Optimal hierarchical modular topologies for producing limited sustained activation of neural networks. Frontiers in Neuroinformatics (<a href="https://www.dynamic-connectome.org/pubs/Kaiser2010Frontiers.pdf" rel="noopener">PDF</a>)</p></div>
+      <div class="card"><span class="tag">Tool</span><h3>ADAPA</h3><p>Adapa is a free reusable tool to run parallel applications on multiple computing platforms, while being flexible enough to allow its users to use any familiar programming languages that they are acquainted with. The tool has been applied to the computation of correlation networks of multi-electrode array (MEA) recordings.</p><div class="dl card-foot"><a href="https://www.dynamic-connectome.org/pubs/suppl/ADAPA.zip" rel="noopener">ADAPA.zip</a></div>
+        <p class="cite-note">See: Pedro Ribeiro, Jennifer Simonotto, Marcus Kaiser and Fernando Silva (2009). Parallel calculation of multi-electrode array correlation networks. Journal of Neuroscience Methods (<a href="https://www.dynamic-connectome.org/pubs/Ribeiro2009.PDF" rel="noopener">PDF</a>)</p></div>
+      <div class="card"><span class="tag">Matlab</span><h3>Spatial growth script</h3><p>Matlab script for spatial networks generated by spatial growth.</p><div class="dl card-foot"><a href="https://www.dynamic-connectome.org/download/sng.m" rel="noopener">sng.m</a></div>
+        <p class="cite-note">Algorithm: Kaiser M., and Hilgetag C.-C. (2004) Spatial growth of real-world networks. Physical Review E 69:036103 (<a href="https://www.dynamic-connectome.org/pubs/Kaiser2004b.pdf" rel="noopener">PDF</a>)</p></div>
+      <div class="card"><span class="tag">Matlab</span><h3>Clustering coefficients &amp; small-world generation</h3><p>Matlab scripts for (1) the clustering coefficient definitions C1, C2, and C’, (2) the indirect definition disconnectedness D, and (3) the inverse generation of small-world networks starting with a random network instead of a regular network and therefore generating a higher percentage of leaf and isolated nodes.</p><div class="dl card-foot"><a href="https://www.dynamic-connectome.org/pubs/suppl/Kaiser2008NJP.zip" rel="noopener">Kaiser2008NJP.zip</a></div>
+        <p class="cite-note">Algorithms: Kaiser M. (2008) Mean clustering coefficients – The role of isolated nodes and leafs on clustering measures for small-world networks. New Journal of Physics 10:083042 (<a href="https://www.dynamic-connectome.org/pubs/Kaiser2008NJP.pdf" rel="noopener">PDF</a>)</p></div>
+    </div>
+  </div>
+</section>
+
+</main>
+<footer class="site-footer on-dark">
+  <div class="wrap">
+    <div>
+      <a class="brand" href="/"><svg viewBox="0 0 40 40" aria-hidden="true" focusable="false">
+  <g stroke="#37B4B0" stroke-width="1.4" fill="none" opacity=".9">
+    <path d="M8 26 L18 10 L31 14 L27 30 L8 26 Z M18 10 L27 30 M8 26 L31 14 M13 18 L22 21 L27 30 M22 21 L18 10"/>
+  </g>
+  <g fill="#DEB406"><circle cx="8" cy="26" r="3"/><circle cx="31" cy="14" r="3"/><circle cx="27" cy="30" r="3"/></g>
+  <g fill="#fff"><circle cx="18" cy="10" r="3.2"/><circle cx="13" cy="18" r="2.2"/><circle cx="22" cy="21" r="4"/></g>
+</svg><span>Dynamic Connectome Lab<small>University of Nottingham</small></span></a>
+      <p>Simulating the dynamics and development of neural networks, and using focused ultrasound neuromodulation to change connectomes for better brain function.</p>
+    </div>
+    <div>
+      <h4>Find us</h4>
+      <address class="address">Precision Imaging<br>School of Medicine<br>University of Nottingham<br>QMC, Nottingham NG7 2UH</address>
+      <p style="margin-top:10px"><a href="/contact/">Contact the lab →</a></p>
+    </div>
+    <div>
+      <h4>Follow</h4>
+      <ul class="socials"><li><a href="https://x.com/connectomelab" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.9 2H22l-7.2 8.3L23 22h-6.6l-5.2-6.8L5.3 22H2.1l7.7-8.8L1.7 2h6.8l4.7 6.2L18.9 2zm-1.1 18h1.8L7.4 3.9H5.5L17.8 20z"/></svg><span>X</span></a></li><li><a href="https://bsky.app/profile/connectomelab.bsky.social" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 10.8c-1.1-2.1-4-6-6.8-8C2.6.9 1.6 1.3.9 1.6.2 1.9 0 3 0 3.6c0 .7.4 5.5.6 6.3.8 2.8 3.7 3.7 6.4 3.4-3.9.6-7.3 2-2.8 7 5 5.2 6.8-1.1 7.8-4.3 1 3.2 2.1 9.3 7.7 4.3 4.2-4.3 1.2-6.4-2.7-7 2.7.3 5.6-.6 6.4-3.4.2-.8.6-5.6.6-6.3 0-.6-.2-1.7-.9-2C22.4 1.3 21.4.9 18.8 2.8c-2.8 2-5.7 5.9-6.8 8z"/></svg><span>Bluesky</span></a></li><li><a href="https://www.linkedin.com/in/marcus-kaiser-82214b2b/" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.4 20.4h-3.6v-5.6c0-1.3 0-3-1.9-3s-2.1 1.4-2.1 2.9v5.7H9.3V9h3.4v1.6h.1c.5-.9 1.6-1.9 3.4-1.9 3.6 0 4.3 2.4 4.3 5.5v6.2zM5.3 7.4a2.1 2.1 0 1 1 0-4.2 2.1 2.1 0 0 1 0 4.2zM7.1 20.4H3.5V9h3.6v11.4zM22.2 0H1.8C.8 0 0 .8 0 1.7v20.6c0 .9.8 1.7 1.8 1.7h20.4c1 0 1.8-.8 1.8-1.7V1.7C24 .8 23.2 0 22.2 0z"/></svg><span>LinkedIn</span></a></li><li><a href="https://www.youtube.com/channel/UCfM449LKUtYzbs6M9DccLTA" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1c.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8zM9.6 15.6V8.4l6.2 3.6-6.2 3.6z"/></svg><span>YouTube</span></a></li><li><a href="https://scholar.google.co.uk/citations?user=Ha_ZNlkAAAAJ&hl=en" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 0 9l12 7 10-5.8V18h2V9L12 2zm0 16.4-6-3.5V17c0 2.2 2.7 4 6 4s6-1.8 6-4v-2.1l-6 3.5z"/></svg><span>Google Scholar</span></a></li></ul>
+      <p style="margin-top:14px"><a href="https://www.nottingham.ac.uk/research/beacons-of-excellence/precision-imaging/index.aspx" rel="noopener">Precision Imaging Beacon</a> · <a href="http://www.neuroinformatics.org.uk/" rel="noopener">Neuroinformatics UK</a></p>
+    </div>
+    <div class="foot-note">
+      <span>© Dynamic Connectome Lab, University of Nottingham</span>
+      <span><a href="/team/">Team</a> · <a href="/publications/">Publications</a> · <a href="/join-us/">Join us</a></span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

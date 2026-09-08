@@ -1,0 +1,62 @@
+{
+  "client": "dynamicconnectomelab",
+  "client_name": "Dynamic Connectome Lab",
+  "original_url": "https://sites.google.com/view/dynamicconnectomelab/home",
+  "original_host": "sites.google.com",
+  "captured": "2026-09-08",
+  "capture_status": "frame fallback — the sandbox this demo was built in cannot reach sites.google.com (proxy refuses the tunnel); page text, links and layout were read through the desktop browser instead and every fact below traces to that reading",
+  "brand": {
+    "colors": { "value": ["#10263B", "#009BC1", "#FAF6EF", "#DEB406"], "source": "nottingham.ac.uk/brand/visual/colour.aspx (Nottingham Blue, Malaysia Sky Blue, Portland Stone, Rebel's Gold) — chosen per Fid's 'Nottingham-adjacent' direction; the Google Site itself has no palette beyond theme defaults", "seen": "2026-09-08", "confidence": "confirmed" },
+    "site_colors_observed": { "value": "Google Sites theme: white ground, #212121 headings, #49aad4 links, Lato / Merriweather / PT Sans / Roboto", "source": "site:css", "seen": "2026-09-08", "confidence": "confirmed" },
+    "display_font": { "value": "Fraunces", "source": "house choice — no brand typeface on the site or the UoN colour page", "seen": "2026-09-08", "confidence": "confirmed" },
+    "body_font": { "value": "Inter", "source": "house default", "seen": "2026-09-08", "confidence": "confirmed" },
+    "logo": { "value": "small colour brain graphic in the header (86×51) — not fetchable from the sandbox; replaced by an original network-graph mark", "source": "site:header", "seen": "2026-09-08", "confidence": "confirmed" },
+    "tone": { "value": "academic, first-person PI voice on Join us ('my lab'), plain and factual", "source": "site:copy", "seen": "2026-09-08", "confidence": "confirmed" }
+  },
+  "facts": {
+    "name": { "value": "Dynamic Connectome Lab", "source": "site:/home", "seen": "2026-09-08", "confidence": "confirmed" },
+    "pi": { "value": "Marcus Kaiser — Principal Investigator, Professor of Neuroinformatics, University of Nottingham", "source": "site:/team", "seen": "2026-09-08", "confidence": "confirmed" },
+    "intro": { "value": "Lab of Dr Marcus Kaiser and his team as part of the Precision Imaging research group. We are working on the simulation of the dynamics and development of neural networks using Neuroinformatics and network analysis tools. We aim to understand the link between structure and dynamics (e.g. for schizophrenia, depression, dementia or other network diseases) and to use non-invasive brain stimulation (focused ultrasound neuromodulation) to change connectomes in order to improve brain function. We also lead Neuroinformatics UK representing more than 600 researchers in the fields of neuroinformatics and computational neuroscience.", "source": "site:/home", "seen": "2026-09-08", "confidence": "confirmed" },
+    "precision_imaging_url": { "value": "https://www.nottingham.ac.uk/research/beacons-of-excellence/precision-imaging/index.aspx", "source": "site:/home", "seen": "2026-09-08", "confidence": "confirmed" },
+    "neuroinformatics_uk_url": { "value": "http://www.neuroinformatics.org.uk/", "source": "site:/home", "seen": "2026-09-08", "confidence": "confirmed" },
+    "home_video": { "value": "YouTube embed GbnRuRi1B-Q — 'Human Brain Connectivity (DTI) - 20 year old female' (Dynamic Connectome Lab channel); replaced on the new home page by the interactive tractography model at visualneuroscience.ai/tracts per Fid", "source": "site:/home", "seen": "2026-09-08", "confidence": "confirmed" },
+    "home_dead_embed": { "value": "'Tweets by ConnectomeLab' — bare link with a blank block above the video where the X timeline used to render", "source": "site:/home", "seen": "2026-09-08", "confidence": "confirmed" },
+    "address": { "value": "Precision Imaging, School of Medicine, University of Nottingham, QMC, Nottingham NG7 2UH", "source": "site:/contact", "seen": "2026-09-08", "confidence": "confirmed" },
+    "map": { "value": "Google Maps embed at 52.943778, -1.186202 (NG7 2UH)", "source": "site:/contact", "seen": "2026-09-08", "confidence": "confirmed" },
+    "email": { "value": "Marcus.Kaiser@nottingham.ac.uk", "source": "nottingham.ac.uk/cmmb/people/marcus.kaiser (university staff listing) — NOT on the Google Site", "seen": "2026-09-08", "confidence": "unconfirmed" },
+    "phone": { "value": "+44 (0) 115 748 6065", "source": "nottingham.ac.uk/cmmb/people/marcus.kaiser (university staff listing) — NOT on the Google Site", "seen": "2026-09-08", "confidence": "unconfirmed" },
+    "socials": { "value": { "x": "https://x.com/connectomelab", "bluesky": "https://bsky.app/profile/connectomelab.bsky.social", "linkedin": "https://www.linkedin.com/in/marcus-kaiser-82214b2b/", "youtube": "https://www.youtube.com/channel/UCfM449LKUtYzbs6M9DccLTA", "scholar": "https://scholar.google.co.uk/citations?user=Ha_ZNlkAAAAJ&hl=en" }, "source": "site:footer, site:/join-us, site:/publications", "seen": "2026-09-08", "confidence": "confirmed" },
+    "pi_links": { "value": { "cv_html": "https://www.dynamic-connectome.org/cv.html", "cv_pdf": "https://www.dynamic-connectome.org/cv.pdf", "scholar": "https://scholar.google.com/citations?hl=en&user=Ha_ZNlkAAAAJ", "twitter": "https://www.twitter.com/connectomelab" }, "source": "site:/team", "seen": "2026-09-08", "confidence": "confirmed" },
+    "team_current": { "value": [["Marcus Kaiser","Principal Investigator · Professor of Neuroinformatics, University of Nottingham"],["Alicia Falcon Caro","PostDoc"],["Daniel Halls","PostDoc"],["Oliver Cattell","PostDoc"],["Marilyn Gatica","Visiting PostDoc"],["Zewen Chen","PhD student"],["Mohammad Alkhawashki","PhD student"],["Stephanos Kontogouris","PhD student"]], "source": "site:/team", "seen": "2026-09-08", "confidence": "confirmed" },
+    "team_alumni": { "value": "26 alumni with roles and destinations — see work/team-alumni in build data (verbatim from site:/team)", "source": "site:/team", "seen": "2026-09-08", "confidence": "confirmed" },
+    "team_photos": { "value": "square headshots for every member on the Google Site; not fetchable from the sandbox — demo uses monogram placeholders", "source": "site:/team", "seen": "2026-09-08", "confidence": "confirmed" },
+    "research_themes": { "value": "Personalised brain stimulation · Predicting intervention outcomes · Connectome development in health and disease · Connectome organisation — verbatim copy and citation links in work/research (site:/research)", "source": "site:/research", "seen": "2026-09-08", "confidence": "confirmed" },
+    "research_figures": { "value": "hero photo of the NeuroFUS/Sonic Concepts rig and VERTEX simulation plots — theirs, not fetchable from the sandbox", "source": "site:/research", "seen": "2026-09-08", "confidence": "confirmed" },
+    "publications": { "value": "134 peer-reviewed journal articles, 9 conference proceedings, 9 book chapters, 4 other publications, 14 press items — verbatim in work/pubs-*.txt", "source": "site:/publications", "seen": "2026-09-08", "confidence": "confirmed" },
+    "resources": { "value": "Lab resources (neuromodulation suite, neuroimaging & computing, cognitive/physiological testing), 6 datasets, 8 code packages — verbatim in work/resources.txt", "source": "site:/resources", "seen": "2026-09-08", "confidence": "confirmed" },
+    "join_us": { "value": "Research environment, 'Open positions will be announced soon', five research interests, opportunities by level with funding links — verbatim in work/join-us.txt", "source": "site:/join-us", "seen": "2026-09-08", "confidence": "confirmed" },
+    "old_domain": { "value": "https://www.dynamic-connectome.org — hosts the CV, PDFs and datasets linked throughout", "source": "site:/team, site:/publications, site:/resources", "seen": "2026-09-08", "confidence": "confirmed" }
+  },
+  "conflicts": [
+    { "field": "publication numbering", "site": "Journal list is numbered 134→1 but items 103 and 102 share one paragraph and item 64's PDF link sits in its own paragraph", "on_page": "site", "question": "None — normalised in the rebuild without changing any citation text." },
+    { "field": "Twitter vs X", "site": "Team page says 'Twitter' (twitter.com); footer and Join us say 'X' (x.com)", "on_page": "site", "question": "Use 'X' throughout?" }
+  ],
+  "gaps": [
+    "No email address or phone number anywhere on the Google Site — Join us says 'get in touch with me' with nowhere to go. The rebuild uses the university staff-listing email/phone, flagged unconfirmed.",
+    "No headshots, lab photos or research figures could be copied in this environment — the rebuild uses monogram avatars and original network graphics; the lab's own images drop in on transfer.",
+    "No lab logo file — an original network-graph mark stands in.",
+    "Funding links on Join us include Newcastle-era and dead-looking URLs (ncl.ac.uk ORS page, dfid.gov.uk, innovation.gov.au) — carried over unchanged; worth a review by the lab."
+  ],
+  "questions": [
+    "Is Marcus.Kaiser@nottingham.ac.uk the address you want on the Contact page (taken from the university staff listing, not your site)?",
+    "Should the phone number from the staff listing appear on the site?",
+    "Can we use the team headshots, the NeuroFUS rig photo and the VERTEX figures from the current site?",
+    "Is 'Open positions will be announced soon' still current?",
+    "Keep both X and Bluesky, or lead with one?"
+  ],
+  "photos": [
+    { "file": "(not copied)", "source": "site:/home hero — Trent Building & lake (University of Nottingham stock)", "theirs": false, "cleared": false },
+    { "file": "(not copied)", "source": "site:/team headshots (34)", "theirs": true, "cleared": false },
+    { "file": "(not copied)", "source": "site:/research — NeuroFUS rig photo, VERTEX plots", "theirs": true, "cleared": false }
+  ]
+}

@@ -1,0 +1,363 @@
+'use strict';
+// Home, Team, Research — content verbatim from the captured Google Site (work/brief.json).
+const { socialList } = require('./layout');
+
+// ── Hero art: an original network graph (deterministic) ────────────────
+function heroArt() {
+  let seed = 7;
+  const rnd = () => { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; };
+  const W = 520, H = 400, N = 46;
+  const pts = [];
+  for (let i = 0; i < N; i++) {
+    // scatter inside a soft ellipse, with a denser core
+    const a = rnd() * Math.PI * 2, r = Math.sqrt(rnd());
+    pts.push({ x: W / 2 + Math.cos(a) * r * 230, y: H / 2 + Math.sin(a) * r * 165, hub: false });
+  }
+  // hubs: five larger gold nodes
+  [3, 11, 19, 27, 38].forEach(i => { pts[i].hub = true; });
+  const edges = [];
+  for (let i = 0; i < N; i++) {
+    const d = pts.map((p, j) => ({ j, d: Math.hypot(p.x - pts[i].x, p.y - pts[i].y) })).filter(o => o.j !== i).sort((a, b) => a.d - b.d);
+    const k = pts[i].hub ? 7 : 2 + Math.floor(rnd() * 2);
+    for (let m = 0; m < k; m++) { const j = d[m].j; if (i < j) edges.push([i, j]); else edges.push([j, i]); }
+  }
+  const uniq = [...new Set(edges.map(e => e.join('-')))].map(s => s.split('-').map(Number));
+  const paths = uniq.map(([i, j]) => `M${pts[i].x.toFixed(1)} ${pts[i].y.toFixed(1)}L${pts[j].x.toFixed(1)} ${pts[j].y.toFixed(1)}`).join('');
+  const nodes = pts.map(p => p.hub
+    ? `<circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="7" fill="#DEB406"/>`
+    : `<circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="3.2" fill="#fff" opacity=".9"/>`).join('');
+  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Abstract network graph: nodes connected by edges, with a few highlighted hubs">
+  <path d="${paths}" stroke="#37B4B0" stroke-width="1.1" fill="none" opacity=".55"/>
+  ${nodes}
+</svg>`;
+}
+
+const home = {
+  path: '/', title: 'Home',
+  description: 'Lab of Marcus Kaiser at the University of Nottingham: simulating the dynamics and development of neural networks, and using focused ultrasound neuromodulation to change connectomes and improve brain function.',
+  body: `
+<section class="hero on-dark">
+  <div class="wrap">
+    <div>
+      <p class="kicker">Precision Imaging · University of Nottingham</p>
+      <h1>Dynamic Connectome Lab</h1>
+      <p class="lede">We simulate the dynamics and development of neural networks, and use non-invasive brain stimulation — focused ultrasound neuromodulation — to change connectomes in order to improve brain function.</p>
+      <div class="actions">
+        <a class="btn" href="/research/">Our research</a>
+        <a class="btn btn-ghost" href="/join-us/">Join the lab</a>
+      </div>
+    </div>
+    <div class="hero-art">${heroArt()}</div>
+  </div>
+</section>
+
+<section class="embed-band on-dark">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <p class="kicker">Explore</p>
+        <h2>The wiring of a human brain</h2>
+      </div>
+      <p class="muted">Drag to turn it. Colours show which way each fibre runs.</p>
+    </div>
+    <div class="embed-frame">
+      <iframe src="https://visualneuroscience.ai/tracts#tkRen" title="Interactive tractography — HCP1065 population-average streamlines, rendered by VisualNeuroscience.AI" loading="lazy" allow="fullscreen" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+    <div class="embed-caption">
+      <span>Population-average tractography (HCP1065 atlas) · interactive model by VisualNeuroscience.AI</span>
+      <a href="https://visualneuroscience.ai/tracts" rel="noopener" target="_blank">Open full screen ↗</a>
+    </div>
+  </div>
+</section>
+
+<section class="band-panel">
+  <div class="wrap">
+    <div class="facts">
+      <div><b>134</b><span>Peer-reviewed journal articles</span></div>
+      <div><b>600+</b><span>Researchers represented through Neuroinformatics UK, which the lab leads</span></div>
+      <div><b class="sm">FUS · TMS · TIS</b><span>Neuromodulation suite next to the MRI Centre, plus vagus-nerve ultrasound</span></div>
+      <div><b>QMC</b><span>School of Medicine, University of Nottingham, NG7 2UH</span></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap two-col">
+    <div>
+      <p class="kicker">About the lab</p>
+      <h2>Structure, dynamics and how to change them</h2>
+    </div>
+    <div class="prose">
+      <p>Lab of Dr Marcus Kaiser and his team as part of the <a href="https://www.nottingham.ac.uk/research/beacons-of-excellence/precision-imaging/index.aspx" rel="noopener">Precision Imaging</a> research group. We are working on the simulation of the dynamics and development of neural networks using Neuroinformatics and network analysis tools.</p>
+      <p>We aim to understand the link between structure and dynamics (e.g. for schizophrenia, depression, dementia or other network diseases) and to use non-invasive brain stimulation (focused ultrasound neuromodulation) to change connectomes in order to improve brain function.</p>
+      <p>We also lead <a href="http://www.neuroinformatics.org.uk/" rel="noopener">Neuroinformatics UK</a>, representing more than 600 researchers in the fields of neuroinformatics and computational neuroscience.</p>
+      <p><a class="link-arrow" href="/team/">Meet the team</a></p>
+    </div>
+  </div>
+</section>
+
+<section class="band-2">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <p class="kicker">Research</p>
+        <h2>Four questions we work on</h2>
+      </div>
+      <p><a class="link-arrow" href="/research/">All research</a></p>
+    </div>
+    <div class="grid-4">
+      <a class="card card-link" href="/research/#stimulation"><span class="card-num">01</span><h3>Personalised brain stimulation</h3><p>Computer simulations, based on an individual's connectome, can predict stimulation outcomes.</p><span class="card-foot link-arrow">Read more</span></a>
+      <a class="card card-link" href="/research/#outcomes"><span class="card-num">02</span><h3>Predicting intervention outcomes</h3><p>Connectome information can indicate regions involved in epilepsy and predict surgery outcome.</p><span class="card-foot link-arrow">Read more</span></a>
+      <a class="card card-link" href="/research/#development"><span class="card-num">03</span><h3>Connectome development in health and disease</h3><p>Spatial and temporal features can lead to small-world and modular networks; hub nodes arise early.</p><span class="card-foot link-arrow">Read more</span></a>
+      <a class="card card-link" href="/research/#organisation"><span class="card-num">04</span><h3>Connectome organisation</h3><p>Hierarchical modular architecture prevents widespread activation and facilitates functional specialisation.</p><span class="card-foot link-arrow">Read more</span></a>
+    </div>
+  </div>
+</section>
+
+<section class="band-navy on-dark">
+  <div class="wrap two-col">
+    <div>
+      <p class="kicker">Join us</p>
+      <h2>Internships, PhDs and post-docs</h2>
+      <p class="lede">The lab is interested in applicants working on focused ultrasound neuromodulation, simulating brain stimulation, large-scale network dynamics, structural and functional connectivity, and new tools for neuroimaging and connectome analysis.</p>
+      <div class="actions"><a class="btn" href="/join-us/">See opportunities</a><a class="btn btn-ghost" href="/contact/">Get in touch</a></div>
+    </div>
+    <div>
+      <p class="kicker">Follow the lab</p>
+      <p class="muted">Open positions are announced on X, Bluesky and LinkedIn first.</p>
+      ${socialList(['x', 'bluesky', 'linkedin', 'youtube'])}
+    </div>
+  </div>
+</section>
+`,
+};
+
+// ── Team ────────────────────────────────────────────────────────────────
+const CURRENT = [
+  ['Alicia Falcon Caro', 'PostDoc'],
+  ['Daniel Halls', 'PostDoc'],
+  ['Oliver Cattell', 'PostDoc'],
+  ['Marilyn Gatica', 'Visiting PostDoc'],
+  ['Zewen Chen', 'PhD student'],
+  ['Mohammad Alkhawashki', 'PhD student'],
+  ['Stephanos Kontogouris', 'PhD student'],
+];
+const ALUMNI = [
+  ['James Ross', 'PostDoc'],
+  ['Xue Chen', 'Visiting PhD student, now Faculty Member at Qingdao University'],
+  ['Chris Hayward', 'PhD student, now PostDoc'],
+  ['Joseph Necus', 'PostDoc'],
+  ['Michael Mackay', 'PhD student, now clinician'],
+  ['Frances Hutchings', 'PhD student, now PostDoc'],
+  ['Chris Thornton', 'PhD student, now Faculty Member'],
+  ['Ramtin Mehraram', 'PhD student, now PostDoc'],
+  ['Roman Bauer', 'PostDoc, now Faculty Member'],
+  ['Luis Peraza', 'PostDoc, now Associate Research Engineer at IXICO (London, UK)'],
+  ['Christoforos Papasavvas', 'PhD student, now PostDoc'],
+  ['Peter Taylor', 'PostDoc, now Associate Professor and UKRI FLF'],
+  ['Yujiang Wang', 'PostDoc, now Associate Professor and UKRI FLF'],
+  ['Sol Lim', 'PostDoc, now PostDoc at Cambridge University'],
+  ['Henrik Kjeldsen', 'PhD student, now Associate Professor at Aarhus University'],
+  ['Cheol Han', 'PostDoc, now Professor at Korea University'],
+  ['Jinseop Kim', 'Visiting PostDoc, now Professor at Sungkyunkwan University (SKKU)'],
+  ['Richard Tomsett', 'PhD student, now working in R&amp;D for IBM UK'],
+  ['Jennifer Simonotto', 'PostDoc, now PostDoc at Imperial College London'],
+  ['Iwo Bohr', 'Master thesis in Bioinformatics, now PostDoc at Cambridge University, UK'],
+  ['Christoph Feenders', 'Visiting PostDoc, now Research Associate at Oldenburg University, Germany'],
+  ['Blaine Keetch', 'PostDoc'],
+  ['Ben Hatton', 'Research Assistant'],
+  ['Yujie Wang', 'Visiting Professor'],
+  ['Cyril Atkinson-Clement', 'PostDoc, now faculty at Plymouth University'],
+  ['Stefan Pszczolkowski', 'PostDoc'],
+];
+const initials = n => n.split(/\s+/).filter(Boolean).map(w => w[0]).slice(0, 2).join('').toUpperCase();
+
+const team = {
+  path: '/team/', title: 'Team',
+  description: 'The people of the Dynamic Connectome Lab at the University of Nottingham — principal investigator Marcus Kaiser, post-docs, PhD students and lab alumni.',
+  body: `
+<section class="hero-inner on-dark">
+  <div class="wrap">
+    <p class="kicker">Team</p>
+    <h1>The people</h1>
+    <p class="lede">Led by Marcus Kaiser, Professor of Neuroinformatics at the University of Nottingham.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head"><h2>Current members</h2><p class="muted">Eight researchers</p></div>
+    <div class="people">
+      <div class="person pi">
+        <div class="avatar a1" aria-hidden="true">MK</div>
+        <div>
+          <b>Marcus Kaiser</b>
+          <span>Principal Investigator · Professor of Neuroinformatics, University of Nottingham</span>
+          <div class="links">
+            <a href="https://www.dynamic-connectome.org/cv.html" rel="noopener">CV (html)</a>
+            <a href="https://www.dynamic-connectome.org/cv.pdf" rel="noopener">CV (PDF)</a>
+            <a href="https://scholar.google.com/citations?hl=en&amp;user=Ha_ZNlkAAAAJ" rel="noopener">Google Scholar</a>
+            <a href="https://x.com/connectomelab" rel="noopener">X</a>
+          </div>
+        </div>
+      </div>
+      ${CURRENT.map(([n, r], i) => `<div class="person"><div class="avatar a${(i % 7) + 2}" aria-hidden="true">${initials(n)}</div><div><b>${n}</b><span>${r}</span></div></div>`).join('\n      ')}
+    </div>
+  </div>
+</section>
+
+<section class="band-panel">
+  <div class="wrap">
+    <div class="section-head"><h2>Lab alumni</h2><p class="muted">${ALUMNI.length} former members and where they went</p></div>
+    <ul class="alumni">
+      ${ALUMNI.map(([n, r]) => `<li><b>${n}</b> — <span>${r}</span></li>`).join('\n      ')}
+    </ul>
+  </div>
+</section>
+
+<section class="band-navy on-dark">
+  <div class="wrap two-col">
+    <div><p class="kicker">Join us</p><h2>Want your name on this page?</h2><p class="lede">Internship, PhD and post-doc routes into the lab, with funding sources by country.</p></div>
+    <div class="actions" style="margin-top:0"><a class="btn" href="/join-us/">See opportunities</a></div>
+  </div>
+</section>
+`,
+};
+
+// ── Research ────────────────────────────────────────────────────────────
+const research = {
+  path: '/research/', title: 'Research',
+  description: 'Personalised brain stimulation, predicting intervention outcomes, connectome development, and connectome organisation — the research themes of the Dynamic Connectome Lab.',
+  body: `
+<section class="hero-inner on-dark">
+  <div class="wrap">
+    <p class="kicker">Research</p>
+    <h1>Research</h1>
+    <p class="lede">From the wiring of C. elegans to focused ultrasound in the human brain: four themes, one question — how does network structure shape dynamics, and how can we change it?</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <ul class="subnav" aria-label="On this page">
+      <li><a href="#stimulation">Personalised brain stimulation</a></li>
+      <li><a href="#outcomes">Predicting intervention outcomes</a></li>
+      <li><a href="#development">Connectome development</a></li>
+      <li><a href="#organisation">Connectome organisation</a></li>
+    </ul>
+
+    <article class="theme" id="stimulation">
+      <div class="theme-grid">
+        <div class="prose">
+          <p class="kicker">01</p>
+          <h2>Personalised brain stimulation</h2>
+          <p class="finding">Computer simulations, based on an individual's connectome, can predict stimulation outcomes</p>
+          <p>While many psychiatric and neurological conditions are treated with pharmaceutical drugs, side effects remain severe. Brain stimulation of distinct regions of the brain offers a potential route to new treatments. However, for neuromodulation to replace drugs in the future, interventions need to be targeted, personalised and non-invasive.</p>
+          <p>We are developing computational models based on a subject's connectome to predict global neuromodulation effects. Using focused ultrasound stimulation (FUS), we develop approaches to change brain connectivity and thus cognitive function for the long-term. The aim is to improve cognitive function for mental and brain health conditions.</p>
+          <p>We also develop models to predict stimulation effects at the local tissue model using the <a href="http://scholarpedia.org/article/VERTEX" rel="noopener">VERTEX brain tissue simulator</a>.</p>
+        </div>
+        <aside class="figure">
+          <svg viewBox="0 0 320 180" role="img" aria-label="Schematic: a focused ultrasound beam converging on one region of a brain network">
+            <path d="M20 90 Q120 20 200 86" stroke="#009BC1" stroke-width="2" fill="none" opacity=".8"/>
+            <path d="M20 90 Q120 160 200 94" stroke="#009BC1" stroke-width="2" fill="none" opacity=".8"/>
+            <path d="M20 90 L200 90" stroke="#009BC1" stroke-width="1.5" stroke-dasharray="4 4" fill="none" opacity=".6"/>
+            <g stroke="#CFD4D8" stroke-width="1.2" fill="none"><path d="M200 90 L250 50 L290 70 L270 120 L230 130 Z M250 50 L270 120 M200 90 L290 70 M230 130 L290 70"/></g>
+            <g fill="#10263B"><circle cx="250" cy="50" r="4"/><circle cx="290" cy="70" r="4"/><circle cx="270" cy="120" r="4"/><circle cx="230" cy="130" r="4"/></g>
+            <circle cx="200" cy="90" r="9" fill="#DEB406"/>
+            <rect x="8" y="70" width="14" height="40" rx="3" fill="#10263B"/>
+          </svg>
+          Focused ultrasound targets one region; the connectome model predicts the network-wide effect.
+        </aside>
+      </div>
+    </article>
+
+    <article class="theme" id="outcomes">
+      <div class="theme-grid">
+        <div class="prose">
+          <p class="kicker">02</p>
+          <h2>Predicting intervention outcomes</h2>
+          <p class="finding">Removal of hub nodes in simulated lesions has severe effects for network architecture</p>
+          <p>Why do some lesions cause more severe deficits than others? We found that cortical networks behave similar to scale-free networks after the removal of regions or connections with drastic effects for removing network hubs (<a href="http://www.blackwell-synergy.com/doi/abs/10.1111/j.1460-9568.2007.05574.x" rel="noopener">Kaiser et al., European Journal of Neuroscience, 2007</a>).</p>
+          <p class="finding">Connectome information can indicate regions involved in epilepsy and predict surgery outcome</p>
+          <p>Can epileptic seizure patterns be related to brain connectivity? Based on structural connectivity for temporal lobe epilepsy, we can already predict starting points for epileptic seizures (<a href="http://www.dynamic-connectome.org/pubs/Hutchings2015PLOSCB.pdf" rel="noopener">Hutchings et al. PLOS Computational Biology, 2015</a>).</p>
+          <p>Moreover, changes within regions are more informative than changes between regions for predicting surgery outcome (<a href="https://onlinelibrary.wiley.com/doi/abs/10.1002/hbm.25464" rel="noopener">Chen et al., 2021</a>).</p>
+        </div>
+        <aside class="figure">
+          <svg viewBox="0 0 320 180" role="img" aria-label="Schematic: removing a hub node breaks a network into fragments">
+            <g stroke="#CFD4D8" stroke-width="1.2" fill="none"><path d="M60 40 L110 90 L60 140 M110 90 L40 90 M110 90 L130 30 M110 90 L150 120"/></g>
+            <g fill="#10263B"><circle cx="60" cy="40" r="5"/><circle cx="60" cy="140" r="5"/><circle cx="40" cy="90" r="5"/><circle cx="130" cy="30" r="5"/><circle cx="150" cy="120" r="5"/></g>
+            <circle cx="110" cy="90" r="9" fill="#DEB406"/>
+            <path d="M175 90 L205 90" stroke="#10263B" stroke-width="2"/><path d="M200 84 L208 90 L200 96" stroke="#10263B" stroke-width="2" fill="none"/>
+            <g fill="#10263B" opacity=".9"><circle cx="240" cy="40" r="5"/><circle cx="240" cy="140" r="5"/><circle cx="220" cy="90" r="5"/><circle cx="300" cy="30" r="5"/><circle cx="305" cy="120" r="5"/></g>
+            <circle cx="270" cy="90" r="9" fill="none" stroke="#B91C2E" stroke-width="2" stroke-dasharray="3 3"/>
+            <path d="M262 82 L278 98 M278 82 L262 98" stroke="#B91C2E" stroke-width="2"/>
+          </svg>
+          Lesioning a hub (gold) has drastic effects; peripheral nodes barely matter.
+        </aside>
+      </div>
+    </article>
+
+    <article class="theme" id="development">
+      <div class="theme-grid">
+        <div class="prose">
+          <p class="kicker">03</p>
+          <h2>Connectome development in health and disease</h2>
+          <p class="finding">Spatial and temporal features can lead to small-world and modular networks</p>
+          <p>A simple model for the development of networks in space, spatial growth, can generate networks with small-world properties (<a href="http://www.dynamic-connectome.org/pubs/Kaiser2004b.pdf" rel="noopener">Kaiser &amp; Hilgetag, Physical Review E, 2004</a>). The algorithm can generate networks with similar properties than cortical networks (<a href="http://www.dynamic-connectome.org/pubs/Kaiser2004c.pdf" rel="noopener">Kaiser &amp; Hilgetag, Neurocomputing, 2004</a>). However, multiple clusters only arise in few cases.</p>
+          <p>The existence of multiple clusters can be secured if there are time windows for connection establishment so that some parts of the network develops earlier than others and there is a higher probability to form connections if both regions have similar time windows for synaptogenesis (<a href="https://www.dynamic-connectome.org/research/pubs/Kaiser2007NC.pdf" rel="noopener">Kaiser &amp; Hilgetag, Neurocomputing, 2007</a>).</p>
+          <p class="finding">Following an old-gets-richer model, hub nodes arise early during development</p>
+          <p>Observing birth-times of neurons in C. elegans we could show that 70% of long-distance connections potentially arise early on during development, before hatching when the worm only has 20% of its final body size. In addition, hub nodes were also generated early on indicating that the time that neurons have available to receive connections from later neurons can explain the increased node degree (<a href="https://www.dynamic-connectome.org/pubs/Varier2011.pdf" rel="noopener">Varier &amp; Kaiser, PLoS Computational Biology, 2011</a>). More about connectome development can be found in the MIT Press book <a href="http://mitpress.mit.edu/9780262044615/" rel="noopener">'Changing Connectomes'</a>.</p>
+        </div>
+        <aside class="figure">
+          <svg viewBox="0 0 320 180" role="img" aria-label="Schematic: a network growing in space over three time windows, early nodes becoming hubs">
+            <g fill="none" stroke="#CFD4D8" stroke-width="1.2">
+              <path d="M40 90 L70 60 L90 100 L40 90"/>
+              <path d="M140 90 L170 60 L190 100 L140 90 M170 60 L200 40 L215 75 L190 100"/>
+              <path d="M240 90 L270 60 L290 100 L240 90 M270 60 L300 40 L315 75 L290 100 M240 90 L225 130 L265 140 L290 100"/>
+            </g>
+            <g fill="#10263B"><circle cx="70" cy="60" r="4"/><circle cx="90" cy="100" r="4"/><circle cx="170" cy="60" r="4"/><circle cx="190" cy="100" r="4"/><circle cx="200" cy="40" r="3"/><circle cx="215" cy="75" r="3"/><circle cx="290" cy="100" r="4"/><circle cx="300" cy="40" r="3"/><circle cx="315" cy="75" r="3"/><circle cx="225" cy="130" r="3"/><circle cx="265" cy="140" r="3"/></g>
+            <circle cx="40" cy="90" r="5" fill="#DEB406"/><circle cx="140" cy="90" r="6" fill="#DEB406"/><circle cx="240" cy="90" r="8" fill="#DEB406"/><circle cx="270" cy="60" r="5" fill="#DEB406"/>
+            <text x="40" y="165" font-family="Inter,system-ui,sans-serif" font-size="11" fill="#707D89">t₁</text><text x="140" y="165" font-family="Inter,system-ui,sans-serif" font-size="11" fill="#707D89">t₂</text><text x="240" y="165" font-family="Inter,system-ui,sans-serif" font-size="11" fill="#707D89">t₃</text>
+          </svg>
+          Old gets richer: the earliest nodes (gold) have longest to collect connections.
+        </aside>
+      </div>
+    </article>
+
+    <article class="theme" id="organisation">
+      <div class="theme-grid">
+        <div class="prose">
+          <p class="kicker">04</p>
+          <h2>Connectome organisation</h2>
+          <p class="finding">Hierarchical modular network architecture prevents widespread activation and facilitates functional specialisation</p>
+          <p>Neural systems also show a hierarchical architecture with modules and sub-modules covering different levels of organization, from cortical columns to visual, auditory, and sensorimotor cortices (<a href="http://www.dynamic-connectome.org/pubs/Kaiser2010editorial.pdf" rel="noopener">Kaiser et al. Frontiers in Neuroinformatics, 2011</a>).</p>
+          <p>Recent work includes the characterization of the specific modular organisation of human structural connectivity (<a href="http://www.dynamic-connectome.org/pubs/Kim2014.pdf" rel="noopener">Kim et al. Phil. Trans. Roy. Soc. B, 2014</a>) and an overview of network features across species (<a href="http://www.dynamic-connectome.org/pubs/Kaiser2015CurrBiol.pdf" rel="noopener">Kaiser, Current Biology, 2015</a>).</p>
+          <p class="finding">Non-optimal component placement improves information propagation and switching between brain states</p>
+          <p>For the human brain, regions are not positioned to minimize the total length of their connections (<a href="https://direct.mit.edu/netn/article-abstract/doi/10.1162/netn_a_00282/113279" rel="noopener">Hayward et al., 2023</a>). This nonoptimal organization, previously shown for C. elegans and rhesus monkeys (<a href="https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.0020095" rel="noopener">Kaiser &amp; Hilgetag, 2006</a>), better allows distant brain regions to communicate. In addition, this suboptimal spatial arrangement of the connectome promotes fluctuations in human brain dynamics, potentially enabling the brain to undertake flexible behavioral responses.</p>
+        </div>
+        <aside class="figure">
+          <svg viewBox="0 0 320 180" role="img" aria-label="Schematic: modules of nodes nested inside larger modules, with a few long-distance connections between them">
+            <g fill="none" stroke="#CFD4D8" stroke-width="1.2">
+              <ellipse cx="90" cy="90" rx="70" ry="60"/><ellipse cx="230" cy="90" rx="70" ry="60"/>
+              <circle cx="65" cy="70" r="22"/><circle cx="115" cy="110" r="22"/><circle cx="205" cy="70" r="22"/><circle cx="255" cy="110" r="22"/>
+            </g>
+            <path d="M87 70 L183 70 M137 110 L233 110" stroke="#009BC1" stroke-width="2" fill="none"/>
+            <g fill="#10263B"><circle cx="58" cy="62" r="3"/><circle cx="72" cy="78" r="3"/><circle cx="68" cy="60" r="3"/><circle cx="108" cy="102" r="3"/><circle cx="122" cy="118" r="3"/><circle cx="118" cy="100" r="3"/><circle cx="198" cy="62" r="3"/><circle cx="212" cy="78" r="3"/><circle cx="208" cy="60" r="3"/><circle cx="248" cy="102" r="3"/><circle cx="262" cy="118" r="3"/><circle cx="258" cy="100" r="3"/></g>
+          </svg>
+          Modules within modules; a few long-distance links (blue) let distant regions talk.
+        </aside>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="band-panel">
+  <div class="wrap two-col">
+    <div><p class="kicker">Read the papers</p><h2>Publications</h2></div>
+    <div><p class="lede">134 peer-reviewed articles, searchable by year and topic, plus conference papers, book chapters and press coverage.</p><div class="actions"><a class="btn" href="/publications/">Browse publications</a><a class="btn btn-ghost on-light" href="/resources/">Data &amp; code</a></div></div>
+  </div>
+</section>
+`,
+};
+
+module.exports = { home, team, research };

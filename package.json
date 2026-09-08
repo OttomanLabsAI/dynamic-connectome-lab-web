@@ -1,0 +1,19 @@
+{
+  "name": "dynamicconnectomelab-web",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Dynamic Connectome Lab (University of Nottingham) — site-pitch demo: new multi-page site, framed original and offer page, served from public/ on Cloudflare Workers static assets.",
+  "scripts": {
+    "build": "node scripts/build-site.js --demo",
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "check": "wrangler deploy --dry-run",
+    "shots": "node scripts/shots.js",
+    "verify": "node scripts/verify-layout.js --dir \"$PWD/.verify-stage\" --routes \"/,/team/,/research/,/publications/,/resources/,/join-us/,/contact/,/offer/,/404.html\" --fonts \"Fraunces,Inter\" --original-host sites.google.com",
+    "preview": "node scripts/build-preview.js"
+  },
+  "devDependencies": {
+    "playwright-core": "^1.63.0",
+    "wrangler": "^4.0.0"
+  }
+}
