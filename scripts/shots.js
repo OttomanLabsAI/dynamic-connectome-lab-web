@@ -27,16 +27,18 @@ const server = http.createServer((req, res) => {
   await new Promise(r => server.listen(0, '127.0.0.1', r));
   const port = server.address().port;
   fs.mkdirSync(OUT, { recursive: true });
-  const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome', args: ['--no-sandbox'] });
+  const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome', args: ['--no-sandbox', '--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist'] });
   for (const [name, w, h] of [['desktop', 1440, 900], ['phone', 390, 844]]) {
     const ctx = await browser.newContext({ viewport: { width: w, height: h }, deviceScaleFactor: 1 });
     const page = await ctx.newPage();
     for (const r of ROUTES) {
       await page.goto(`http://127.0.0.1:${port}${r}`, { waitUntil: 'load', timeout: 20000 }).catch(e => console.error(r, e.message));
       await page.evaluate(() => document.fonts.ready);
-      await page.waitForTimeout(200);
+      await page.waitForTimeout(r === '/' ? 6000 : r === '/research/' ? 2500 : 200);
+      if (r === '/research/') { for (const f of await page.$$('.ifig')) { await f.scrollIntoViewIfNeeded(); await page.waitForTimeout(150); } await page.waitForTimeout(2500); }
+      if (r === '/') { const sp = await page.$('.tract-spin'); if (sp) await sp.click().catch(() => {}); await page.waitForTimeout(400); }
       const slug = r === '/' ? 'home' : r.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '');
-      await page.screenshot({ path: path.join(OUT, `${slug}-${name}.png`), fullPage: true });
+      await page.screenshot({ path: path.join(OUT, `${slug}-${name}.png`), fullPage: true, timeout: 120000 });
       console.log('shot', slug, name);
     }
     await ctx.close();

@@ -28,6 +28,10 @@ public/                everything served — this is the site
   404.html
   assets/css/site.css  the stylesheet
   assets/js/publications.js
+  assets/js/tractogram.js      home-page NiiVue tractogram (spin switch, drag)
+  assets/js/niivue.umd.js      NiiVue 0.69.0, vendored from npm
+  assets/js/research-figs.js   the four interactive research figures
+  assets/tracts/hcp1065.trx    the streamlines — see "The tractogram" below
   fonts/               Fraunces 400/600/700 + Inter 400/500/600, self-hosted
   favicon.svg  robots.txt (disallow all — pitch demo)  _headers
 src/
@@ -68,10 +72,35 @@ npm run shots && open .shots/                         # then look at them
 
 `verify-layout.js` needs an absolute `--dir`; a relative one 403s every route.
 
+## The tractogram
+
+The home page draws the HCP1065 population-average streamlines itself with
+NiiVue, on the site's own blue, from `public/assets/tracts/hcp1065.trx`. **The
+file in the repo right now is a stand-in** — a small public NiiVue demo bundle
+(`dpsv.trx`, 0.6 MB) — because the build environment could not reach
+visualneuroscience.ai. Before pushing, replace it with the real 6.2 MB file:
+
+```bash
+npm run tractogram      # curls it from visualneuroscience.ai/assets/tracts/
+```
+
+or copy `site/assets/tracts/hcp1065.trx` from the NeuralMapping repo over it.
+Nothing else changes: the viewer, spin switch and colours are file-agnostic.
+The atlas is CC BY-SA 4.0 (Yeh FC, Nat Commun 2022) and the credit line under
+the canvas stays.
+
+## The research figures
+
+`research-figs.js` rebuilds the four figures on the Google Site's research page
+as interactive models with sliders: the VERTEX-style stimulation field and LFP
+trace, the within/between-region ROC curves (defaults tuned to the published
+AUCs), spatial growth of a network (Kaiser & Hilgetag 2004/2007), and a
+hierarchical modular network with spreading activation (Kaiser & Hilgetag
+2010). They are illustrative models of the mechanisms, not the lab's data, and
+each panel says so in its intro.
+
 ## External resources
 
-- `https://visualneuroscience.ai/tracts` — the interactive tractography model
-  embedded on the home page (replaces the YouTube video on the Google Site).
 - Publication PDFs, datasets and the PI's CV link out to
   `www.dynamic-connectome.org` and publisher sites, exactly as on the Google Site.
 - Fonts are self-hosted; nothing loads from Google Fonts.
@@ -79,6 +108,6 @@ npm run shots && open .shots/                         # then look at them
 ## On transfer
 
 Remove the demo bar (`node scripts/build-site.js` without `--demo`), delete
-`public/original/` and `public/offer/`, switch `robots.txt` to allow, and drop
-in the lab's own headshots, the NeuroFUS photo and the VERTEX figures where the
-monograms and schematics stand today.
+`public/original/` and `public/offer/`, switch `robots.txt` to allow, make sure
+the real tractogram is in place, and drop in the lab's own headshots and the
+NeuroFUS photo where the monograms stand today.

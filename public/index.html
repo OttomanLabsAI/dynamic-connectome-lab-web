@@ -10,6 +10,7 @@
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/fonts/fonts.css">
   <link rel="stylesheet" href="/assets/css/site.css">
+  <script src="/assets/js/tractogram.js" defer></script>
 </head>
 <body>
 <style id="pitch-bar-css">
@@ -80,22 +81,15 @@
   </div>
 </section>
 
-<section class="embed-band on-dark">
+<section class="tract-band on-dark">
   <div class="wrap">
-    <div class="section-head">
-      <div>
-        <p class="kicker">Explore</p>
-        <h2>The wiring of a human brain</h2>
-      </div>
-      <p class="muted">Drag to turn it. Colours show which way each fibre runs.</p>
+    <div class="tract-stage" id="tractogram" data-lib="/assets/js/niivue.umd.js" data-tract="/assets/tracts/hcp1065.trx" data-bg="#10263B">
+      <canvas aria-label="Interactive tractogram of a population-average human brain: drag to turn it"></canvas>
+      <p class="tract-status" role="status">Loading the viewer…</p>
+      <div class="tract-bar" hidden></div>
+      <button class="tract-spin" type="button" aria-pressed="true"><i aria-hidden="true"></i><span>Spinning</span></button>
     </div>
-    <div class="embed-frame">
-      <iframe src="https://visualneuroscience.ai/tracts#tkRen" title="Interactive tractography — HCP1065 population-average streamlines, rendered by VisualNeuroscience.AI" loading="lazy" allow="fullscreen" referrerpolicy="no-referrer-when-downgrade"></iframe>
-    </div>
-    <div class="embed-caption">
-      <span>Population-average tractography (HCP1065 atlas) · interactive model by VisualNeuroscience.AI</span>
-      <a href="https://visualneuroscience.ai/tracts" rel="noopener" target="_blank">Open full screen ↗</a>
-    </div>
+    <p class="tract-credit">Population-average tractography of the human brain — HCP1065 atlas (Yeh, 2022, CC BY-SA 4.0). Drag to turn it; colours show fibre direction.</p>
   </div>
 </section>
 

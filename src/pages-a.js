@@ -34,6 +34,7 @@ function heroArt() {
 
 const home = {
   path: '/', title: 'Home',
+  head: '  <script src="/assets/js/tractogram.js" defer></script>\n',
   description: 'Lab of Marcus Kaiser at the University of Nottingham: simulating the dynamics and development of neural networks, and using focused ultrasound neuromodulation to change connectomes and improve brain function.',
   body: `
 <section class="hero on-dark">
@@ -51,22 +52,15 @@ const home = {
   </div>
 </section>
 
-<section class="embed-band on-dark">
+<section class="tract-band on-dark">
   <div class="wrap">
-    <div class="section-head">
-      <div>
-        <p class="kicker">Explore</p>
-        <h2>The wiring of a human brain</h2>
-      </div>
-      <p class="muted">Drag to turn it. Colours show which way each fibre runs.</p>
+    <div class="tract-stage" id="tractogram" data-lib="/assets/js/niivue.umd.js" data-tract="/assets/tracts/hcp1065.trx" data-bg="#10263B">
+      <canvas aria-label="Interactive tractogram of a population-average human brain: drag to turn it"></canvas>
+      <p class="tract-status" role="status">Loading the viewer…</p>
+      <div class="tract-bar" hidden></div>
+      <button class="tract-spin" type="button" aria-pressed="true"><i aria-hidden="true"></i><span>Spinning</span></button>
     </div>
-    <div class="embed-frame">
-      <iframe src="https://visualneuroscience.ai/tracts#tkRen" title="Interactive tractography — HCP1065 population-average streamlines, rendered by VisualNeuroscience.AI" loading="lazy" allow="fullscreen" referrerpolicy="no-referrer-when-downgrade"></iframe>
-    </div>
-    <div class="embed-caption">
-      <span>Population-average tractography (HCP1065 atlas) · interactive model by VisualNeuroscience.AI</span>
-      <a href="https://visualneuroscience.ai/tracts" rel="noopener" target="_blank">Open full screen ↗</a>
-    </div>
+    <p class="tract-credit">Population-average tractography of the human brain — HCP1065 atlas (Yeh, 2022, CC BY-SA 4.0). Drag to turn it; colours show fibre direction.</p>
   </div>
 </section>
 
@@ -227,6 +221,7 @@ const team = {
 // ── Research ────────────────────────────────────────────────────────────
 const research = {
   path: '/research/', title: 'Research',
+  head: '  <script src="/assets/js/research-figs.js" defer></script>\n',
   description: 'Personalised brain stimulation, predicting intervention outcomes, connectome development, and connectome organisation — the research themes of the Dynamic Connectome Lab.',
   body: `
 <section class="hero-inner on-dark">
@@ -247,8 +242,7 @@ const research = {
     </ul>
 
     <article class="theme" id="stimulation">
-      <div class="theme-grid">
-        <div class="prose">
+      <div class="prose">
           <p class="kicker">01</p>
           <h2>Personalised brain stimulation</h2>
           <p class="finding">Computer simulations, based on an individual's connectome, can predict stimulation outcomes</p>
@@ -256,24 +250,13 @@ const research = {
           <p>We are developing computational models based on a subject's connectome to predict global neuromodulation effects. Using focused ultrasound stimulation (FUS), we develop approaches to change brain connectivity and thus cognitive function for the long-term. The aim is to improve cognitive function for mental and brain health conditions.</p>
           <p>We also develop models to predict stimulation effects at the local tissue model using the <a href="http://scholarpedia.org/article/VERTEX" rel="noopener">VERTEX brain tissue simulator</a>.</p>
         </div>
-        <aside class="figure">
-          <svg viewBox="0 0 320 180" role="img" aria-label="Schematic: a focused ultrasound beam converging on one region of a brain network">
-            <path d="M20 90 Q120 20 200 86" stroke="#009BC1" stroke-width="2" fill="none" opacity=".8"/>
-            <path d="M20 90 Q120 160 200 94" stroke="#009BC1" stroke-width="2" fill="none" opacity=".8"/>
-            <path d="M20 90 L200 90" stroke="#009BC1" stroke-width="1.5" stroke-dasharray="4 4" fill="none" opacity=".6"/>
-            <g stroke="#CFD4D8" stroke-width="1.2" fill="none"><path d="M200 90 L250 50 L290 70 L270 120 L230 130 Z M250 50 L270 120 M200 90 L290 70 M230 130 L290 70"/></g>
-            <g fill="#10263B"><circle cx="250" cy="50" r="4"/><circle cx="290" cy="70" r="4"/><circle cx="270" cy="120" r="4"/><circle cx="230" cy="130" r="4"/></g>
-            <circle cx="200" cy="90" r="9" fill="#DEB406"/>
-            <rect x="8" y="70" width="14" height="40" rx="3" fill="#10263B"/>
-          </svg>
-          Focused ultrasound targets one region; the connectome model predicts the network-wide effect.
-        </aside>
+      <div class="ifig" data-fig="stimulation">
+        <div class="ifig-head"><span class="pill">Interactive</span><b>Stimulation field and local field potential</b><p>An illustrative model in the spirit of the lab's VERTEX simulations: a bipolar electrode in a millimetre of tissue, the extracellular potential it creates, and the field potential a nearby recording site would see. Drag the electrode; change the current.</p></div>
       </div>
     </article>
 
     <article class="theme" id="outcomes">
-      <div class="theme-grid">
-        <div class="prose">
+      <div class="prose">
           <p class="kicker">02</p>
           <h2>Predicting intervention outcomes</h2>
           <p class="finding">Removal of hub nodes in simulated lesions has severe effects for network architecture</p>
@@ -282,24 +265,13 @@ const research = {
           <p>Can epileptic seizure patterns be related to brain connectivity? Based on structural connectivity for temporal lobe epilepsy, we can already predict starting points for epileptic seizures (<a href="http://www.dynamic-connectome.org/pubs/Hutchings2015PLOSCB.pdf" rel="noopener">Hutchings et al. PLOS Computational Biology, 2015</a>).</p>
           <p>Moreover, changes within regions are more informative than changes between regions for predicting surgery outcome (<a href="https://onlinelibrary.wiley.com/doi/abs/10.1002/hbm.25464" rel="noopener">Chen et al., 2021</a>).</p>
         </div>
-        <aside class="figure">
-          <svg viewBox="0 0 320 180" role="img" aria-label="Schematic: removing a hub node breaks a network into fragments">
-            <g stroke="#CFD4D8" stroke-width="1.2" fill="none"><path d="M60 40 L110 90 L60 140 M110 90 L40 90 M110 90 L130 30 M110 90 L150 120"/></g>
-            <g fill="#10263B"><circle cx="60" cy="40" r="5"/><circle cx="60" cy="140" r="5"/><circle cx="40" cy="90" r="5"/><circle cx="130" cy="30" r="5"/><circle cx="150" cy="120" r="5"/></g>
-            <circle cx="110" cy="90" r="9" fill="#DEB406"/>
-            <path d="M175 90 L205 90" stroke="#10263B" stroke-width="2"/><path d="M200 84 L208 90 L200 96" stroke="#10263B" stroke-width="2" fill="none"/>
-            <g fill="#10263B" opacity=".9"><circle cx="240" cy="40" r="5"/><circle cx="240" cy="140" r="5"/><circle cx="220" cy="90" r="5"/><circle cx="300" cy="30" r="5"/><circle cx="305" cy="120" r="5"/></g>
-            <circle cx="270" cy="90" r="9" fill="none" stroke="#B91C2E" stroke-width="2" stroke-dasharray="3 3"/>
-            <path d="M262 82 L278 98 M278 82 L262 98" stroke="#B91C2E" stroke-width="2"/>
-          </svg>
-          Lesioning a hub (gold) has drastic effects; peripheral nodes barely matter.
-        </aside>
+      <div class="ifig" data-fig="roc">
+        <div class="ifig-head"><span class="pill">Interactive</span><b>Predicting surgery outcome from connectivity</b><p>An illustrative ROC model whose defaults follow the published result — within-region networks (AUC 0.97) beat between-region networks (AUC 0.94) at predicting outcome (Chen et al., 2021). Move the threshold to trade sensitivity for specificity, or draw a new cohort.</p></div>
       </div>
     </article>
 
     <article class="theme" id="development">
-      <div class="theme-grid">
-        <div class="prose">
+      <div class="prose">
           <p class="kicker">03</p>
           <h2>Connectome development in health and disease</h2>
           <p class="finding">Spatial and temporal features can lead to small-world and modular networks</p>
@@ -308,25 +280,13 @@ const research = {
           <p class="finding">Following an old-gets-richer model, hub nodes arise early during development</p>
           <p>Observing birth-times of neurons in C. elegans we could show that 70% of long-distance connections potentially arise early on during development, before hatching when the worm only has 20% of its final body size. In addition, hub nodes were also generated early on indicating that the time that neurons have available to receive connections from later neurons can explain the increased node degree (<a href="https://www.dynamic-connectome.org/pubs/Varier2011.pdf" rel="noopener">Varier &amp; Kaiser, PLoS Computational Biology, 2011</a>). More about connectome development can be found in the MIT Press book <a href="http://mitpress.mit.edu/9780262044615/" rel="noopener">'Changing Connectomes'</a>.</p>
         </div>
-        <aside class="figure">
-          <svg viewBox="0 0 320 180" role="img" aria-label="Schematic: a network growing in space over three time windows, early nodes becoming hubs">
-            <g fill="none" stroke="#CFD4D8" stroke-width="1.2">
-              <path d="M40 90 L70 60 L90 100 L40 90"/>
-              <path d="M140 90 L170 60 L190 100 L140 90 M170 60 L200 40 L215 75 L190 100"/>
-              <path d="M240 90 L270 60 L290 100 L240 90 M270 60 L300 40 L315 75 L290 100 M240 90 L225 130 L265 140 L290 100"/>
-            </g>
-            <g fill="#10263B"><circle cx="70" cy="60" r="4"/><circle cx="90" cy="100" r="4"/><circle cx="170" cy="60" r="4"/><circle cx="190" cy="100" r="4"/><circle cx="200" cy="40" r="3"/><circle cx="215" cy="75" r="3"/><circle cx="290" cy="100" r="4"/><circle cx="300" cy="40" r="3"/><circle cx="315" cy="75" r="3"/><circle cx="225" cy="130" r="3"/><circle cx="265" cy="140" r="3"/></g>
-            <circle cx="40" cy="90" r="5" fill="#DEB406"/><circle cx="140" cy="90" r="6" fill="#DEB406"/><circle cx="240" cy="90" r="8" fill="#DEB406"/><circle cx="270" cy="60" r="5" fill="#DEB406"/>
-            <text x="40" y="165" font-family="Inter,system-ui,sans-serif" font-size="11" fill="#707D89">t₁</text><text x="140" y="165" font-family="Inter,system-ui,sans-serif" font-size="11" fill="#707D89">t₂</text><text x="240" y="165" font-family="Inter,system-ui,sans-serif" font-size="11" fill="#707D89">t₃</text>
-          </svg>
-          Old gets richer: the earliest nodes (gold) have longest to collect connections.
-        </aside>
+      <div class="ifig" data-fig="growth">
+        <div class="ifig-head"><span class="pill">Interactive</span><b>Spatial growth of a network</b><p>Neurons are born one at a time and connect to existing neurons with a probability that falls with distance (Kaiser &amp; Hilgetag, 2004). Watch small-world structure emerge; switch on time windows to get multiple clusters (Kaiser &amp; Hilgetag, 2007).</p></div>
       </div>
     </article>
 
     <article class="theme" id="organisation">
-      <div class="theme-grid">
-        <div class="prose">
+      <div class="prose">
           <p class="kicker">04</p>
           <h2>Connectome organisation</h2>
           <p class="finding">Hierarchical modular network architecture prevents widespread activation and facilitates functional specialisation</p>
@@ -335,17 +295,8 @@ const research = {
           <p class="finding">Non-optimal component placement improves information propagation and switching between brain states</p>
           <p>For the human brain, regions are not positioned to minimize the total length of their connections (<a href="https://direct.mit.edu/netn/article-abstract/doi/10.1162/netn_a_00282/113279" rel="noopener">Hayward et al., 2023</a>). This nonoptimal organization, previously shown for C. elegans and rhesus monkeys (<a href="https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.0020095" rel="noopener">Kaiser &amp; Hilgetag, 2006</a>), better allows distant brain regions to communicate. In addition, this suboptimal spatial arrangement of the connectome promotes fluctuations in human brain dynamics, potentially enabling the brain to undertake flexible behavioral responses.</p>
         </div>
-        <aside class="figure">
-          <svg viewBox="0 0 320 180" role="img" aria-label="Schematic: modules of nodes nested inside larger modules, with a few long-distance connections between them">
-            <g fill="none" stroke="#CFD4D8" stroke-width="1.2">
-              <ellipse cx="90" cy="90" rx="70" ry="60"/><ellipse cx="230" cy="90" rx="70" ry="60"/>
-              <circle cx="65" cy="70" r="22"/><circle cx="115" cy="110" r="22"/><circle cx="205" cy="70" r="22"/><circle cx="255" cy="110" r="22"/>
-            </g>
-            <path d="M87 70 L183 70 M137 110 L233 110" stroke="#009BC1" stroke-width="2" fill="none"/>
-            <g fill="#10263B"><circle cx="58" cy="62" r="3"/><circle cx="72" cy="78" r="3"/><circle cx="68" cy="60" r="3"/><circle cx="108" cy="102" r="3"/><circle cx="122" cy="118" r="3"/><circle cx="118" cy="100" r="3"/><circle cx="198" cy="62" r="3"/><circle cx="212" cy="78" r="3"/><circle cx="208" cy="60" r="3"/><circle cx="248" cy="102" r="3"/><circle cx="262" cy="118" r="3"/><circle cx="258" cy="100" r="3"/></g>
-          </svg>
-          Modules within modules; a few long-distance links (blue) let distant regions talk.
-        </aside>
+      <div class="ifig" data-fig="hierarchy">
+        <div class="ifig-head"><span class="pill">Interactive</span><b>Hierarchical modular network and spreading activity</b><p>Modules within modules, as in the lab's models of cortical organisation. Click a node: activity spreads but stays limited. Rewire the network at random and the same activity sweeps through everything (Kaiser &amp; Hilgetag, 2010).</p></div>
       </div>
     </article>
   </div>

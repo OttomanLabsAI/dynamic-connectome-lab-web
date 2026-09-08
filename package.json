@@ -10,9 +10,11 @@
     "check": "wrangler deploy --dry-run",
     "shots": "node scripts/shots.js",
     "verify": "node scripts/verify-layout.js --dir \"$PWD/.verify-stage\" --routes \"/,/team/,/research/,/publications/,/resources/,/join-us/,/contact/,/offer/,/404.html\" --fonts \"Fraunces,Inter\" --original-host sites.google.com",
-    "preview": "node scripts/build-preview.js"
+    "preview": "node scripts/build-preview.js",
+    "tractogram": "sh scripts/fetch-tractogram.sh"
   },
   "devDependencies": {
+    "@niivue/niivue": "^0.69.0",
     "playwright-core": "^1.63.0",
     "wrangler": "^4.0.0"
   }

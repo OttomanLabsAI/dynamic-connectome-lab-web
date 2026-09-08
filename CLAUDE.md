@@ -16,7 +16,8 @@ public/            everything served (generated, committed)
   index.html + team/ research/ publications/ resources/ join-us/ contact/
   original/ offer/ demo-only tabs
   404.html
-  assets/css|js    stylesheet and the publications search
+  assets/css|js    stylesheet, publications search, tractogram viewer (NiiVue), research figures
+  assets/tracts    hcp1065.trx — a stand-in until `npm run tractogram` fetches the real file
   fonts/           self-hosted Fraunces + Inter
   _headers         security + caching headers
   robots.txt       disallow all while this is a pitch demo
@@ -89,3 +90,4 @@ split, headings never capped at a reading measure, card grids use
 | Version | Title | Description |
 | --- | --- | --- |
 | v1.0 | The lab's site, rebuilt across all seven pages | A new home for the Dynamic Connectome Lab: every page of the Google Site rebuilt in the University's colours, the publications list made searchable, an interactive brain-wiring model on the home page, with the current site and the offer alongside for comparison. |
+| v1.1 | The brain on the page, and figures you can play with | The home page now draws the brain's wiring itself on the site's own blue — spin it, drag it, one switch — instead of framing another website. The four research figures have become interactive models with sliders: stimulate tissue, move a classifier threshold, grow a network, watch activity spread. |
