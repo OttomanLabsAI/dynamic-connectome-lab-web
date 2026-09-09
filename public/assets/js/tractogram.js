@@ -1,7 +1,9 @@
 /* Home-page tractogram: the HCP1065 population-average streamlines drawn with
-   NiiVue straight onto the page, on the site's own blue. Drag to turn it; a
-   single switch starts and stops the slow spin. The library and the streamlines
-   (a few megabytes together) only load once the section is near the viewport. */
+   NiiVue straight onto the page, on the site's own blue. The strands draw
+   themselves along their paths once, then the model turns slowly. Drag to turn
+   it; a single switch starts and stops the spin. The library and the
+   streamlines (a few megabytes together) only load once the section is near
+   the viewport. */
 (function () {
   'use strict';
   var stage = document.getElementById('tractogram');
@@ -15,8 +17,10 @@
   var BG = (stage.getAttribute('data-bg') || '#10263B').replace('#', '');
   var bg = [parseInt(BG.slice(0, 2), 16) / 255, parseInt(BG.slice(2, 4), 16) / 255, parseInt(BG.slice(4, 6), 16) / 255, 1];
 
-  var DEG_PER_SEC = 7, IDLE_MS = 2500;
+  var DEG_PER_SEC = 7, IDLE_MS = 2500, GROW_MS = 2400;
   var nv = null, spinning = true, lastTouch = 0, prev;
+  var growUntil = 0, growMesh = null, growTotal = 0, growStep = 30;
+  var stillMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   function say(text, pct) {
     if (!status) return;
@@ -83,9 +87,86 @@
     });
   }
 
+  /* ── Growing the strands ──────────────────────────────────────────────
+     NiiVue draws each streamline segment as one block of fiberSides*6 indices,
+     laid down in order along the path, one streamline after the next. Sorting
+     those blocks by how far along its own path each one sits — every strand's
+     first segment, then every strand's second, and so on — means that drawing
+     only the first N indices draws every strand grown to the same fraction of
+     its own length. The animation is then just a number, indexCount, with no
+     geometry to rebuild: the expensive part happens once, here.
+
+     The index array is caught as NiiVue uploads it rather than read back off
+     the GPU, which would cost a stall and a second copy of ~64 MB. */
+  function captureIndices(gl, build) {
+    var caught = null, orig = gl.bufferData;
+    gl.bufferData = function (target, data, usage) {
+      if (target === gl.ELEMENT_ARRAY_BUFFER && data && data.BYTES_PER_ELEMENT === 4 && data.length > 3000) caught = data;
+      return orig.call(gl, target, data, usage);
+    };
+    try { build(); } finally { gl.bufferData = orig; }
+    return caught;
+  }
+
+  function sortBlocksByArc(mesh, idx) {
+    var per = mesh.fiberSides * 6, off = mesh.offsetPt0, lens = mesh.fiberLengths;
+    if (!per || !off || !lens) return false;
+    var minLen = mesh.fiberLength, count = off.length - 1, blocks = 0, l;
+    for (l = 0; l < count; l++) if (!(lens[l] < minLen)) blocks += off[l + 1] - off[l] - 1;
+    /* If the buffer is not laid out the way this reads it — a different
+       viewer, or fibres dropped by a filter — leave it alone and skip the
+       animation rather than scrambling the geometry. */
+    if (!blocks || blocks * per !== idx.length) return false;
+
+    var BUCKETS = 2048, key = new Uint16Array(blocks), b = 0, s, segs;
+    for (l = 0; l < count; l++) {
+      if (lens[l] < minLen) continue;
+      segs = off[l + 1] - off[l] - 1;
+      for (s = 0; s < segs; s++) key[b++] = Math.floor((s + 1) / segs * (BUCKETS - 1));
+    }
+    var tally = new Uint32Array(BUCKETS + 1), i;
+    for (b = 0; b < blocks; b++) tally[key[b] + 1]++;
+    for (i = 0; i < BUCKETS; i++) tally[i + 1] += tally[i];
+    var dest = new Uint32Array(blocks);
+    for (b = 0; b < blocks; b++) dest[b] = tally[key[b]]++;
+
+    /* Permute the blocks where they lie, following each cycle, so no second
+       copy of the index array is ever allocated. */
+    var seen = new Uint8Array(blocks), held = new Uint32Array(per), spare = new Uint32Array(per);
+    var at, to, start;
+    for (start = 0; start < blocks; start++) {
+      if (seen[start]) continue;
+      seen[start] = 1;
+      if (dest[start] === start) continue;
+      held.set(idx.subarray(start * per, start * per + per));
+      at = start;
+      for (;;) {
+        to = dest[at];
+        spare.set(idx.subarray(to * per, to * per + per));
+        idx.set(held, to * per);
+        held.set(spare);
+        seen[to] = 1;
+        at = to;
+        if (dest[at] === start) { idx.set(held, start * per); break; }
+      }
+    }
+    return true;
+  }
+
   function tick(now) {
     requestAnimationFrame(tick);
-    if (!nv || !spinning || document.hidden) return;
+    if (!nv || document.hidden) return;
+    if (growUntil) {
+      var x = Math.min(1, 1 - (growUntil - now) / GROW_MS);
+      if (x < 0) x = 0;
+      /* Even, readable growth: a gentle start and finish, constant in between. */
+      var eased = x < 0.5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2;
+      growMesh.indexCount = Math.floor(growTotal * eased / growStep) * growStep;
+      if (x >= 1) { growMesh.indexCount = growTotal; growUntil = 0; prev = undefined; }
+      nv.drawScene();
+      return;
+    }
+    if (!spinning) return;
     if (now - lastTouch < IDLE_MS) { prev = undefined; return; }
     if (prev === undefined) prev = now;
     var dt = Math.min(now - prev, 100) / 1000; prev = now;
@@ -120,10 +201,26 @@
       await nv.addMeshFromUrl({ url: TRACT, buffer: buffer });
       nv.setSliceType(niivue.SLICE_TYPE.RENDER);
       if (nv.meshes && nv.meshes.length) {
-        var id = nv.meshes[0].id;
+        var mesh = nv.meshes[0], id = mesh.id;
         nv.setMeshProperty(id, 'fiberColor', 'Local');
         nv.setMeshProperty(id, 'fiberDither', 0.1);
-        nv.setMeshProperty(id, 'fiberRadius', 0.4);
+        /* Setting the radius is the call that rebuilds the fibre geometry, so
+           it is the one to catch the index buffer from. */
+        if (stillMotion) {
+          nv.setMeshProperty(id, 'fiberRadius', 0.4);
+        } else {
+          var idx = captureIndices(nv.gl, function () {
+            nv.setMeshProperty(id, 'fiberRadius', 0.4);
+          });
+          if (idx && sortBlocksByArc(mesh, idx)) {
+            nv.gl.bindVertexArray(null);
+            nv.gl.bindBuffer(nv.gl.ELEMENT_ARRAY_BUFFER, mesh.indexBuffer);
+            nv.gl.bufferData(nv.gl.ELEMENT_ARRAY_BUFFER, idx, nv.gl.STATIC_DRAW);
+            growMesh = mesh; growTotal = idx.length; growStep = mesh.fiberSides * 6;
+            mesh.indexCount = 0;
+          }
+          idx = null;
+        }
       }
       nv.scene.renderAzimuth = 120;
       nv.scene.renderElevation = 15;
@@ -138,6 +235,7 @@
       window.addEventListener('orientationchange', onResize);
       say('');
       stage.classList.add('is-ready');
+      if (growMesh) growUntil = performance.now() + GROW_MS;
       requestAnimationFrame(tick);
     } catch (err) {
       say('The tractogram could not be drawn here (' + (err && err.message ? err.message : err) + ').');
