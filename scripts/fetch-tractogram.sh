@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
-# Replace the stand-in tractogram with the real HCP1065 streamlines used by
+# Refresh public/assets/tracts/hcp1065.trx with the HCP1065 streamlines used by
 # visualneuroscience.ai/tracts (6.2 MB). Run once on a machine with internet,
 # then commit public/assets/tracts/hcp1065.trx.
 set -e

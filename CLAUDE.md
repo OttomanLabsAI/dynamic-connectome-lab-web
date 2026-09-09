@@ -17,7 +17,7 @@ public/            everything served (generated, committed)
   original/ offer/ demo-only tabs
   404.html
   assets/css|js    stylesheet, publications search, tractogram viewer (NiiVue), research figures
-  assets/tracts    hcp1065.trx — a stand-in until `npm run tractogram` fetches the real file
+  assets/tracts    hcp1065.trx — the real HCP1065 streamlines (6.2 MB), same file visualneuroscience.ai serves
   fonts/           self-hosted Fraunces + Inter
   _headers         security + caching headers
   robots.txt       disallow all while this is a pitch demo
@@ -43,7 +43,9 @@ npm run dev          # wrangler dev
    `original/`, with `--original-host sites.google.com`; then `/original/`
    alone without it. Absolute `--dir` only.
 3. `npm run shots`, then look at the screenshots: fonts loaded, layout intact,
-   nothing collapsed to unstyled text.
+   nothing collapsed to unstyled text. On a machine without a GPU the phone
+   capture of `/` can stall (software GL and the tube mesh); the script logs it
+   as `MISSED` and carries on — check that one in a real browser instead.
 
 Never leave pushed work unverified or half-finished. Work in small, complete
 batches: implement, verify, commit, push.
@@ -91,3 +93,4 @@ split, headings never capped at a reading measure, card grids use
 | --- | --- | --- |
 | v1.0 | The lab's site, rebuilt across all seven pages | A new home for the Dynamic Connectome Lab: every page of the Google Site rebuilt in the University's colours, the publications list made searchable, an interactive brain-wiring model on the home page, with the current site and the offer alongside for comparison. |
 | v1.1 | The brain on the page, and figures you can play with | The home page now draws the brain's wiring itself on the site's own blue — spin it, drag it, one switch — instead of framing another website. The four research figures have become interactive models with sliders: stimulate tissue, move a classifier threshold, grow a network, watch activity spread. |
+| v1.2 | The whole brain, not a single bundle | The home page now carries the complete population-average wiring of the human brain in place of the stand-in bundle it launched with — every tract drawn on the site's blue, turning slowly from the moment the page opens. |

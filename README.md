@@ -75,19 +75,24 @@ npm run shots && open .shots/                         # then look at them
 ## The tractogram
 
 The home page draws the HCP1065 population-average streamlines itself with
-NiiVue, on the site's own blue, from `public/assets/tracts/hcp1065.trx`. **The
-file in the repo right now is a stand-in** — a small public NiiVue demo bundle
-(`dpsv.trx`, 0.6 MB) — because the build environment could not reach
-visualneuroscience.ai. Before pushing, replace it with the real 6.2 MB file:
+NiiVue, on the site's own blue, from `public/assets/tracts/hcp1065.trx` — the
+real 6.2 MB file, the same one visualneuroscience.ai/tracts serves (the
+0.6 MB `dpsv.trx` that stood in for it during the build is kept in
+`work/tracts/` for reference). It spins from the moment it appears; the
+switch stops and restarts it, and dragging turns it by hand. To refresh the
+file from the source:
 
 ```bash
 npm run tractogram      # curls it from visualneuroscience.ai/assets/tracts/
 ```
 
-or copy `site/assets/tracts/hcp1065.trx` from the NeuralMapping repo over it.
 Nothing else changes: the viewer, spin switch and colours are file-agnostic.
 The atlas is CC BY-SA 4.0 (Yeh FC, Nat Commun 2022) and the credit line under
 the canvas stays.
+
+`npm run shots` on a machine without a GPU may log `MISSED home phone`: software
+GL cannot composite the tube mesh at phone widths in reasonable time. The pass
+continues; check that view in a real browser.
 
 ## The research figures
 
@@ -108,6 +113,6 @@ each panel says so in its intro.
 ## On transfer
 
 Remove the demo bar (`node scripts/build-site.js` without `--demo`), delete
-`public/original/` and `public/offer/`, switch `robots.txt` to allow, make sure
-the real tractogram is in place, and drop in the lab's own headshots and the
-NeuroFUS photo where the monograms stand today.
+`public/original/` and `public/offer/`, switch `robots.txt` to allow, and drop
+in the lab's own headshots and the NeuroFUS photo where the monograms stand
+today.
