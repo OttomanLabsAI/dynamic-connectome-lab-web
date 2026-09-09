@@ -1,2 +1,26 @@
+# A pitch demo never reaches a search index.
 User-agent: *
 Disallow: /
+
+# Link previews are not indexing: these fetch a shared link to draw its card.
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Slackbot-LinkExpanding
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+User-agent: WhatsApp
+Allow: /
+
+User-agent: Discordbot
+Allow: /
+
+User-agent: TelegramBot
+Allow: /

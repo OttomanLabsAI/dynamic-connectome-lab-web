@@ -9,6 +9,7 @@
     "deploy": "wrangler deploy",
     "check": "wrangler deploy --dry-run",
     "shots": "node scripts/shots.js",
+    "og": "node scripts/make-og.js",
     "verify": "node scripts/verify-layout.js --dir \"$PWD/.verify-stage\" --routes \"/,/team/,/research/,/publications/,/resources/,/join-us/,/contact/,/offer/,/404.html\" --fonts \"Fraunces,Inter\" --original-host sites.google.com",
     "preview": "node scripts/build-preview.js",
     "tractogram": "sh scripts/fetch-tractogram.sh"

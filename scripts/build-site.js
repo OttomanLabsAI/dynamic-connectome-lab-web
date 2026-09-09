@@ -36,8 +36,15 @@ write('assets/js/publications.js', B.PUB_JS);
 // Favicon: the same network mark on Nottingham Blue.
 write('favicon.svg', `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><rect width="40" height="40" rx="8" fill="#10263B"/>${MARK.replace(/^<svg[^>]*>|<\/svg>$/g, '')}</svg>`);
 
-// A pitch demo never reaches a search index.
-write('robots.txt', 'User-agent: *\nDisallow: /\n');
+/* A pitch demo never reaches a search index. A shared link should still unfurl
+   though, and the services that render a link preview read robots.txt like
+   everyone else — so they are named, which gives each its own group in place of
+   the blanket rule. Previewing is not indexing: every search crawler stays out. */
+const UNFURLERS = ['Twitterbot', 'facebookexternalhit', 'Slackbot-LinkExpanding',
+  'LinkedInBot', 'WhatsApp', 'Discordbot', 'TelegramBot'];
+write('robots.txt', '# A pitch demo never reaches a search index.\nUser-agent: *\nDisallow: /\n' +
+  '\n# Link previews are not indexing: these fetch a shared link to draw its card.\n' +
+  UNFURLERS.map(a => `\nUser-agent: ${a}\nAllow: /\n`).join(''));
 
 // Pitch tabs 2 and 3: the framed original and the offer (site-pitch stages 1 and 4).
 write('original/index.html', fs.readFileSync(path.join(ROOT, 'src', 'original.html'), 'utf8'));
