@@ -1,5 +1,5 @@
 {
-  "name": "dynamicconnectomelab-web",
+  "name": "dynamic-connectome-lab-web",
   "version": "1.0.0",
   "private": true,
   "description": "Dynamic Connectome Lab (University of Nottingham) — site-pitch demo: new multi-page site, framed original and offer page, served from public/ on Cloudflare Workers static assets.",

@@ -1,4 +1,4 @@
-# dynamicconnectomelab-web
+# dynamic-connectome-lab-web
 
 A pitch demo for the **Dynamic Connectome Lab** (Marcus Kaiser, University of
 Nottingham), built from their Google Site at

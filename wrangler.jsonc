@@ -2,7 +2,7 @@
   // Assets-only Worker: no script, Cloudflare serves public/ directly.
   // https://developers.cloudflare.com/workers/static-assets/
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "dynamicconnectomelab-web",
+  "name": "dynamic-connectome-lab-web",
   "compatibility_date": "2026-09-08",
   "assets": {
     "directory": "./public",
