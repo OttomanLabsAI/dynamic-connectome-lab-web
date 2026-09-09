@@ -55,6 +55,34 @@
     });
   }
 
+  /* ── Fitting the brain to the canvas ──────────────────────────────────
+     NiiVue sizes the model against the canvas's *shorter* side, so on a wide
+     desktop canvas the height is what runs out first and on a narrow phone
+     canvas it is the width — which is why a single fixed zoom cropped the
+     sides off on a phone. W_PER_SIDE and H_PER_SIDE are the drawn brain's
+     width and height as a fraction of that shorter side, per unit of
+     volScaleMultiplier, measured at the widest point of a full turn so that
+     nothing clips part-way round. The margins keep a little air around it;
+     the 1.4 cap is the framing the desktop already had. */
+  var W_PER_SIDE = 0.85, H_PER_SIDE = 0.692;
+  function fitScale() {
+    var w = canvas.clientWidth || stage.clientWidth || 1;
+    var h = canvas.clientHeight || stage.clientHeight || 1;
+    var side = Math.min(w, h);
+    return Math.min(1.4, 0.90 * w / (W_PER_SIDE * side), 0.97 * h / (H_PER_SIDE * side));
+  }
+
+  var resizePending = false;
+  function onResize() {
+    if (!nv || resizePending) return;
+    resizePending = true;
+    requestAnimationFrame(function () {
+      resizePending = false;
+      nv.scene.volScaleMultiplier = fitScale();
+      nv.drawScene();
+    });
+  }
+
   function tick(now) {
     requestAnimationFrame(tick);
     if (!nv || !spinning || document.hidden) return;
@@ -99,13 +127,15 @@
       }
       nv.scene.renderAzimuth = 120;
       nv.scene.renderElevation = 15;
-      nv.scene.volScaleMultiplier = 1.4;
+      nv.scene.volScaleMultiplier = fitScale();
       nv.drawScene();
       /* the page keeps scrolling over the brain: the wheel is not a zoom here */
       stage.addEventListener('wheel', function (e) { e.stopPropagation(); }, { capture: true, passive: true });
       ['pointerdown', 'pointermove', 'touchstart', 'touchmove'].forEach(function (evt) {
         canvas.addEventListener(evt, touched, { passive: true });
       });
+      window.addEventListener('resize', onResize);
+      window.addEventListener('orientationchange', onResize);
       say('');
       stage.classList.add('is-ready');
       requestAnimationFrame(tick);
