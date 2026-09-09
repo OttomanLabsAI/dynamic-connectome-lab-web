@@ -9,7 +9,7 @@ a demo bar:
 | --- | --- |
 | `/` and the six sub-pages | The new site — Home, Team, Research, Publications, Resources, Join us, Contact |
 | `/original/` | Their live site in a frame (a clean copy could not be made from the build environment) |
-| `/offer/` | The offer — tale of the tape, prices, terms |
+| `/offer/` | The offer — tale of the tape, terms, ownership |
 
 Every fact on the new site traces to `work/brief.json`; the page copy is the
 lab's own, taken verbatim from the Google Site (typos fixed, PI's first-person
@@ -33,7 +33,8 @@ public/                everything served — this is the site
   assets/js/research-figs.js   the four interactive research figures
   assets/tracts/hcp1065.trx    the streamlines — see "The tractogram" below
   fonts/               Fraunces 400/600/700 + Inter 400/500/600, self-hosted
-  favicon.svg  robots.txt (disallow all — pitch demo)  _headers
+  assets/img/og.jpg    the 1200×630 social card, drawn from the tractogram
+  favicon.svg  robots.txt (search crawlers out, link previews in)  _headers
 src/
   layout.js            shared shell: head, header, nav, footer
   pages-a.js           Home, Team, Research
@@ -42,6 +43,7 @@ src/
   offer.html original.html demo-bar.html
 scripts/
   build-site.js        src → public   (node scripts/build-site.js --demo)
+  make-og.js           the social card, rendered from the live tractogram
   verify-layout.js     the layout gate, 320→1920 with the real fonts
   shots.js             full-page screenshots of every route at 1440 and 390
   build-preview.js     one self-contained HTML of the whole demo for phones
@@ -117,6 +119,27 @@ reaches a returning visitor if the `?v=` marker on the script tag in
 `npm run shots` on a machine without a GPU may log `MISSED home phone`: software
 GL cannot composite the tube mesh at phone widths in reasonable time. The pass
 continues; check that view in a real browser.
+
+## The social card
+
+`public/assets/img/og.jpg` is what a shared link unfurls to — the site's own
+tractogram rather than a stock picture. `npm run og` regenerates it: it serves
+`public/`, lets the home page draw and grow the brain exactly as a visitor
+sees it, crops the drawn brain out of the WebGL canvas and sets the wordmark
+beside it in the real Fraunces and Inter, inside the page where they are
+already loaded. Re-run it after changing the viewer, the palette or the
+wording on the card.
+
+The pages point at it with a root-relative `og:image`. Every service that
+matters resolves that against the page URL, but if this ever moves to the
+lab's own domain it is worth making absolute.
+
+Two things had to give for the card to appear at all. The offer page and the
+new site carry `noindex,nofollow` and `robots.txt` still shuts every search
+crawler out — but a link preview is fetched by a crawler too, so the seven
+services that render one (Twitter, Facebook, Slack, LinkedIn, WhatsApp,
+Discord, Telegram) are named in `robots.txt` and allowed. Previewing is not
+indexing; nothing here reaches a search index either way.
 
 ## The research figures
 

@@ -14,13 +14,14 @@ and the output is committed; edit `src/` and rebuild rather than editing
 ```
 public/            everything served (generated, committed)
   index.html + team/ research/ publications/ resources/ join-us/ contact/
-  original/ offer/ demo-only tabs
+  original/ offer/ demo-only tabs (the offer states the terms, not the fees)
   404.html
   assets/css|js    stylesheet, publications search, tractogram viewer (NiiVue), research figures
   assets/tracts    hcp1065.trx — the real HCP1065 streamlines (6.2 MB), same file visualneuroscience.ai serves
   fonts/           self-hosted Fraunces + Inter
   _headers         security + caching headers
-  robots.txt       disallow all while this is a pitch demo
+  robots.txt       search crawlers out; the link-preview services allowed in
+  assets/img       og.jpg, the social card (npm run og, from the live tractogram)
 src/               page sources, content, offer and frame pages
 scripts/           build, verify, screenshots, offline preview
 work/brief.json    every fact on the site, with its source and date
@@ -96,3 +97,4 @@ split, headings never capped at a reading measure, card grids use
 | v1.2 | The whole brain, not a single bundle | The home page now carries the complete population-average wiring of the human brain in place of the stand-in bundle it launched with — every tract drawn on the site's blue, turning slowly from the moment the page opens. |
 | v1.3 | The site gets a home that publishes it | The demo now lives in its own repository and publishes itself: every change pushed to the main branch goes straight to Cloudflare, so what the lab is shown is always the current version. Nothing on the pages themselves has changed. |
 | v1.4 | The brain wires itself, and fits the phone | On a phone the whole brain is now in view instead of being cropped at the sides, whichever way it has turned to. And it no longer simply appears: every strand draws itself from nothing to its full length, all of them together, and the slow turn begins once the wiring is finished. |
+| v1.5 | Prices off the page, and a card for links | The offer now sets out the deal — one flat fee, an optional fortnight of changes, nothing recurring — and leaves the figures to be given in person. Sharing a link shows a proper preview card too: the lab's own brain wiring, its name, and what it works on. |
