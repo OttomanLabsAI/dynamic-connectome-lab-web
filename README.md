@@ -71,6 +71,13 @@ npm run shots && open .shots/                         # then look at them
 ```
 
 `verify-layout.js` needs an absolute `--dir`; a relative one 403s every route.
+It also looks for Chromium on `PATH`. On a container that has only the
+Playwright build (`shots.js` points straight at it), put it on `PATH` first:
+
+```bash
+mkdir -p .bin && ln -sf /opt/pw-browsers/chromium-*/chrome-linux/chrome .bin/chromium
+export PATH="$PWD/.bin:$PATH"
+```
 
 ## The tractogram
 
