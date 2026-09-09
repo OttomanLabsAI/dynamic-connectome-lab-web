@@ -85,9 +85,11 @@ The home page draws the HCP1065 population-average streamlines itself with
 NiiVue, on the site's own blue, from `public/assets/tracts/hcp1065.trx` — the
 real 6.2 MB file, the same one visualneuroscience.ai/tracts serves (the
 0.6 MB `dpsv.trx` that stood in for it during the build is kept in
-`work/tracts/` for reference). It spins from the moment it appears; the
-switch stops and restarts it, and dragging turns it by hand. To refresh the
-file from the source:
+`work/tracts/` for reference). The strands draw themselves along their paths
+first — every fibre growing from nothing to its full length together, over
+about two and a half seconds — and the slow spin starts when they finish. The
+switch stops and restarts the spin, and dragging turns it by hand. To refresh
+the file from the source:
 
 ```bash
 npm run tractogram      # curls it from visualneuroscience.ai/assets/tracts/
@@ -96,6 +98,21 @@ npm run tractogram      # curls it from visualneuroscience.ai/assets/tracts/
 Nothing else changes: the viewer, spin switch and colours are file-agnostic.
 The atlas is CC BY-SA 4.0 (Yeh FC, Nat Commun 2022) and the credit line under
 the canvas stays.
+
+Two things in `tractogram.js` are worth knowing before changing it. The zoom is
+computed from the canvas, not fixed: NiiVue fits the model to the canvas's
+shorter side, so a wide desktop canvas is bound by its height and a narrow
+phone canvas by its width, and the constants there are the drawn brain's
+extents measured at the widest point of a full turn. The growth animation
+re-orders the fibre index buffer once, by how far along its own path each tube
+segment sits, so that growing is nothing but a rising `indexCount` and no
+geometry is ever rebuilt; if the buffer does not match what that code expects
+it leaves it alone and skips the animation. `prefers-reduced-motion` skips it
+too.
+
+`/assets/*` is served immutable for a year, so a changed `tractogram.js` only
+reaches a returning visitor if the `?v=` marker on the script tag in
+`src/pages-a.js` is bumped with it.
 
 `npm run shots` on a machine without a GPU may log `MISSED home phone`: software
 GL cannot composite the tube mesh at phone widths in reasonable time. The pass
