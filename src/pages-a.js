@@ -37,7 +37,7 @@ const home = {
   /* /assets/* is served immutable for a year, so the version marker is what
      gets a changed viewer to a returning visitor: bump it whenever
      tractogram.js changes. */
-  head: '  <script src="/assets/js/tractogram.js?v=1.6" defer></script>\n',
+  head: '  <script src="/assets/js/tractogram.js?v=1.7" defer></script>\n',
   description: 'Lab of Marcus Kaiser at the University of Nottingham: simulating the dynamics and development of neural networks, and using focused ultrasound neuromodulation to change connectomes and improve brain function.',
   body: `
 <section class="hero on-dark">
