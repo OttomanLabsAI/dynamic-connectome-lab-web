@@ -1,7 +1,8 @@
 /* Home-page tractogram: the HCP1065 population-average streamlines drawn with
    NiiVue straight onto the page, on the site's own blue. The strands draw
    themselves along their paths once, then the model turns slowly. Drag to turn
-   it; a single switch starts and stops the spin. The library and the
+   it; a single switch stops and restarts the spin, which is on to begin
+   with. The library and the
    streamlines (a few megabytes together) only load once the section is near
    the viewport. */
 (function () {
@@ -175,9 +176,11 @@
   }
   function touched() { lastTouch = performance.now(); prev = undefined; }
 
+  /* The label stays "Spin" either way — it names what the switch does, and
+     aria-pressed and the knob say which way it is set. It starts on. */
   function setSpin(on) {
     spinning = on; prev = undefined; lastTouch = 0;
-    if (spinBtn) { spinBtn.setAttribute('aria-pressed', String(on)); spinBtn.querySelector('span').textContent = on ? 'Spinning' : 'Spin'; }
+    if (spinBtn) spinBtn.setAttribute('aria-pressed', String(on));
   }
   if (spinBtn) spinBtn.addEventListener('click', function () { setSpin(!spinning); });
 

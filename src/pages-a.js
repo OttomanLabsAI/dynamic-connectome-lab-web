@@ -37,7 +37,7 @@ const home = {
   /* /assets/* is served immutable for a year, so the version marker is what
      gets a changed viewer to a returning visitor: bump it whenever
      tractogram.js changes. */
-  head: '  <script src="/assets/js/tractogram.js?v=1.4" defer></script>\n',
+  head: '  <script src="/assets/js/tractogram.js?v=1.6" defer></script>\n',
   description: 'Lab of Marcus Kaiser at the University of Nottingham: simulating the dynamics and development of neural networks, and using focused ultrasound neuromodulation to change connectomes and improve brain function.',
   body: `
 <section class="hero on-dark">
@@ -61,7 +61,7 @@ const home = {
       <canvas aria-label="Interactive tractogram of a population-average human brain: drag to turn it"></canvas>
       <p class="tract-status" role="status">Loading the viewer…</p>
       <div class="tract-bar" hidden></div>
-      <button class="tract-spin" type="button" aria-pressed="true"><i aria-hidden="true"></i><span>Spinning</span></button>
+      <button class="tract-spin" type="button" aria-pressed="true"><i aria-hidden="true"></i><span>Spin</span></button>
     </div>
     <p class="tract-credit">Population-average tractography of the human brain — HCP1065 atlas (Yeh, 2022, CC BY-SA 4.0). Drag to turn it; colours show fibre direction.</p>
   </div>
