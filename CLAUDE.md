@@ -85,7 +85,8 @@ prove; a missing fact becomes a question for the client, never a guess. The
 two unconfirmed facts (email, phone) keep their "To confirm" chip until the lab
 confirms them. Design tokens are the University of Nottingham palette; the
 typography laws in `public/assets/css/site.css` (single-word headings never
-split, headings never capped at a reading measure, card grids use
+split, nothing capped at a reading measure - body text runs the full width of
+its column so a page lines up on the right, card grids use
 `minmax(min(300px,100%),1fr)`) are enforced by the verify gate.
 
 ## Release ledger
@@ -101,3 +102,4 @@ split, headings never capped at a reading measure, card grids use
 | v1.6 | The brain keeps turning while you look at it | Moving the mouse across the brain used to stop it turning, so it seemed to give up a moment after the page settled. It now keeps going unless you take hold of it, and the switch beside it reads the same either way, set to on when the page opens. |
 | v1.7 | The wiring grows evenly instead of in waves | The brain used to build itself in about twenty visible pulses, each one sweeping across it, because every strand in the file is the same length and they all lengthened in step. The strands are now offset from one another by a fraction of a segment, so the wiring fills in as one continuous flow. |
 | v1.8 | The lab's name stays put when you point at it | Hovering the wordmark in the header made it vanish: it turned the same navy as the bar behind it. It now stays where it is, along with every other link on the dark parts of the site, and the buttons no longer change colour under the pointer. |
+| v1.9 | Body text now reaches the same edge | Paragraphs used to stop well short of the right-hand edge that the headings, cards and figures all reach, which left a band of empty space down the side of several pages. The text now runs the full width of its column, so everything on a page lines up. |
