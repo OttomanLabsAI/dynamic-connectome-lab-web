@@ -20,7 +20,7 @@
 
   var DEG_PER_SEC = 7, IDLE_MS = 2500, GROW_MS = 2400;
   var nv = null, spinning = true, dragging = false, lastTouch = 0, prev;
-  var growUntil = 0, growMesh = null, growTotal = 0, growStep = 30;
+  var growUntil = 0, growArmed = false, growMesh = null, growTotal = 0, growStep = 30;
   var stillMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   function say(text, pct) {
@@ -169,7 +169,12 @@
   function tick(now) {
     requestAnimationFrame(tick);
     if (!nv || document.hidden) return;
-    if (growUntil) {
+    if (growArmed || growUntil) {
+      /* The clock starts on the first frame actually drawn rather than when
+         the geometry was handed over: the upload and the re-ordering can cost
+         a frame or two, and starting from the wall clock would skip that much
+         of the growth and begin part-way up. */
+      if (growArmed) { growArmed = false; growUntil = now + GROW_MS; }
       var x = Math.min(1, 1 - (growUntil - now) / GROW_MS);
       if (x < 0) x = 0;
       /* Even, readable growth: a gentle start and finish, constant in between. */
@@ -262,7 +267,7 @@
       window.addEventListener('orientationchange', onResize);
       say('');
       stage.classList.add('is-ready');
-      if (growMesh) growUntil = performance.now() + GROW_MS;
+      if (growMesh) growArmed = true;
       requestAnimationFrame(tick);
     } catch (err) {
       say('The tractogram could not be drawn here (' + (err && err.message ? err.message : err) + ').');
