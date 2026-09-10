@@ -104,7 +104,7 @@ function page({ path, title, description, body, head = '', bodyClass = '' }) {
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/fonts/fonts.css">
-  <link rel="stylesheet" href="/assets/css/site.css">
+  <link rel="stylesheet" href="/assets/css/site.css?v=1.8">
 ${head}</head>
 <body${bodyClass ? ` class="${bodyClass}"` : ''}>
 <!-- DEMO-BAR -->
