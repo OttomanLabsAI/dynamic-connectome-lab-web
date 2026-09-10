@@ -28,6 +28,12 @@ body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.6 var(--body
 img,svg{max-width:100%;height:auto;display:block}
 a{color:var(--accent-ink);text-decoration-thickness:1px;text-underline-offset:2px}
 a:hover{color:var(--ink)}
+/* --ink is the very navy the dark bands, the header and the footer are painted
+   in, so that hover paints a link out against its own background. The header
+   wordmark did exactly that. The dark contexts therefore state their hover
+   colour rather than leaving it to which rule happens to come last, which is
+   all that was keeping the footer and the bands legible. */
+.site-header a:hover,.site-footer a:hover,.on-dark a:hover{color:#fff}
 :focus-visible{outline:3px solid var(--accent);outline-offset:2px}
 .skip{position:absolute;left:8px;top:56px;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;background:var(--gold);color:var(--ink);padding:8px 12px;z-index:60}
 .skip:focus{width:auto;height:auto;clip:auto;overflow:visible}
