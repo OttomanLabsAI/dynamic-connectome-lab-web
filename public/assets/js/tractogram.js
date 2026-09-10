@@ -18,7 +18,7 @@
   var bg = [parseInt(BG.slice(0, 2), 16) / 255, parseInt(BG.slice(2, 4), 16) / 255, parseInt(BG.slice(4, 6), 16) / 255, 1];
 
   var DEG_PER_SEC = 7, IDLE_MS = 2500, GROW_MS = 2400;
-  var nv = null, spinning = true, lastTouch = 0, prev;
+  var nv = null, spinning = true, dragging = false, lastTouch = 0, prev;
   var growUntil = 0, growMesh = null, growTotal = 0, growStep = 30;
   var stillMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -228,9 +228,21 @@
       nv.drawScene();
       /* the page keeps scrolling over the brain: the wheel is not a zoom here */
       stage.addEventListener('wheel', function (e) { e.stopPropagation(); }, { capture: true, passive: true });
-      ['pointerdown', 'pointermove', 'touchstart', 'touchmove'].forEach(function (evt) {
-        canvas.addEventListener(evt, touched, { passive: true });
+      /* Only a drag holds the spin off. Listening to every pointermove meant
+         that merely moving the mouse across the brain — or the page scrolling
+         under a resting cursor — read as interaction and parked the spin for
+         IDLE_MS, over and over, so it stopped as soon as anyone looked at it.
+         Pointer events cover touch as well: a swipe the browser claims for
+         scrolling arrives as a pointercancel, which lets the spin straight
+         back rather than counting as a turn of the model. */
+      canvas.addEventListener('pointerdown', function () { dragging = true; touched(); }, { passive: true });
+      canvas.addEventListener('pointermove', function (e) { if (dragging || e.buttons) touched(); }, { passive: true });
+      ['pointerup', 'pointerleave'].forEach(function (evt) {
+        canvas.addEventListener(evt, function () { if (dragging) { dragging = false; touched(); } }, { passive: true });
       });
+      canvas.addEventListener('pointercancel', function () {
+        dragging = false; lastTouch = 0; prev = undefined;
+      }, { passive: true });
       window.addEventListener('resize', onResize);
       window.addEventListener('orientationchange', onResize);
       say('');
