@@ -98,7 +98,18 @@
      geometry to rebuild: the expensive part happens once, here.
 
      The index array is caught as NiiVue uploads it rather than read back off
-     the GPU, which would cost a stall and a second copy of ~64 MB. */
+     the GPU, which would cost a stall and a second copy of ~64 MB.
+
+     Sorting on the arc fraction alone is not enough. This file is resampled to
+     a fixed 24 points per streamline, so every strand is 23 segments long and
+     every strand reaches the same fraction of its length at the same instant:
+     the growth lands in 23 synchronised jumps, each one sweeping across the
+     brain in the order the streamlines happen to sit in the file. Giving each
+     strand its own phase within a single segment spreads those steps evenly
+     through the run instead — the strands are then within one segment of each
+     other rather than in lockstep, which is invisible, and the buildup flows.
+     The phase is the golden-ratio sequence, so it is stable between loads and
+     lands neighbouring streamlines far apart. */
   function captureIndices(gl, build) {
     var caught = null, orig = gl.bufferData;
     gl.bufferData = function (target, data, usage) {
@@ -119,11 +130,12 @@
        animation rather than scrambling the geometry. */
     if (!blocks || blocks * per !== idx.length) return false;
 
-    var BUCKETS = 2048, key = new Uint16Array(blocks), b = 0, s, segs;
+    var BUCKETS = 16384, key = new Uint16Array(blocks), b = 0, s, segs, phase;
     for (l = 0; l < count; l++) {
       if (lens[l] < minLen) continue;
       segs = off[l + 1] - off[l] - 1;
-      for (s = 0; s < segs; s++) key[b++] = Math.floor((s + 1) / segs * (BUCKETS - 1));
+      phase = (l * 0.61803398874989) % 1;
+      for (s = 0; s < segs; s++) key[b++] = Math.floor((s + phase) / segs * (BUCKETS - 1));
     }
     var tally = new Uint32Array(BUCKETS + 1), i;
     for (b = 0; b < blocks; b++) tally[key[b] + 1]++;
