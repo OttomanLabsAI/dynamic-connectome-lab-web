@@ -82,8 +82,18 @@ function footer() {
 </footer>`;
 }
 
+/* The Worker's custom domain. Only the metadata is absolute: a card unfurler
+   and a crawler both read these off the page without a browser's idea of where
+   the page came from, and workers.dev still serves the same site, so something
+   has to say which of the two hostnames is the one to quote. Every link in the
+   pages themselves stays relative. */
+const BASE = 'https://dynamic-connectome-lab.basilicalabs.ai';
+
 function page({ path, title, description, body, head = '', bodyClass = '' }) {
   const fullTitle = path === '/' ? 'Dynamic Connectome Lab — University of Nottingham' : `${title} — Dynamic Connectome Lab`;
+  /* The 404 is served in place of whatever was asked for, so it has no URL of
+     its own to claim. */
+  const url = path === '/404.html' ? '' : BASE + path;
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -93,11 +103,12 @@ function page({ path, title, description, body, head = '', bodyClass = '' }) {
   <title>${esc(fullTitle)}</title>
   <meta name="description" content="${esc(description)}">
   <meta name="theme-color" content="#10263B">
+${url ? `  <link rel="canonical" href="${url}">\n  <meta property="og:url" content="${url}">\n` : ''}\
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Dynamic Connectome Lab">
   <meta property="og:title" content="${esc(fullTitle)}">
   <meta property="og:description" content="${esc(description)}">
-  <meta property="og:image" content="/assets/img/og.jpg">
+  <meta property="og:image" content="${BASE}/assets/img/og.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="The population-average wiring of the human brain, drawn in fibre-direction colour, beside the lab's name.">
