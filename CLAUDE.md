@@ -9,7 +9,10 @@ and there is no build step on Cloudflare - the files in that directory are the
 site. `public/` is generated from `src/` by `node scripts/build-site.js --demo`
 and the output is committed; edit `src/` and rebuild rather than editing
 `public/` by hand. The repo is connected to Cloudflare Workers Builds, so
-**every push to `main` deploys to production**.
+**every push to `main` deploys to production**, at
+<https://dynamic-connectome-lab.basilicalabs.ai/>. The `workers.dev` URL serves
+the same site and has to keep working, which is why `workers_dev` is pinned
+`true` in `wrangler.jsonc`: Wrangler defaults it to false once a route exists.
 
 ```
 public/            everything served (generated, committed)
@@ -104,3 +107,4 @@ its column so a page lines up on the right, card grids use
 | v1.8 | The lab's name stays put when you point at it | Hovering the wordmark in the header made it vanish: it turned the same navy as the bar behind it. It now stays where it is, along with every other link on the dark parts of the site, and the buttons no longer change colour under the pointer. |
 | v1.9 | Body text now reaches the same edge | Paragraphs used to stop well short of the right-hand edge that the headings, cards and figures all reach, which left a band of empty space down the side of several pages. The text now runs the full width of its column, so everything on a page lines up. |
 | v1.10 | The offer talks about ownership, not money | The offer page no longer explains fees it does not show. It leads instead with what the lab ends up owning, and says the figures are gone through on a video call. It closes by making the no-obligation part plain: the site comes down on request, or the lab can simply keep it, hosted free for good at its own domain. |
+| v1.11 | The demo gets an address of its own | The site now answers on a proper domain instead of only a generated one, and says so on every page, so a shared link always unfurls under the same name. The old address keeps working exactly as before — nothing that has already been sent out will break. |

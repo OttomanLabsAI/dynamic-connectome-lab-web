@@ -11,6 +11,20 @@ a demo bar:
 | `/original/` | Their live site in a frame (a clean copy could not be made from the build environment) |
 | `/offer/` | The offer — tale of the tape, terms, ownership |
 
+## Where it lives
+
+<https://dynamic-connectome-lab.basilicalabs.ai/> — a custom domain on the
+Worker, added in the Cloudflare dashboard and recorded in `wrangler.jsonc`.
+The `workers.dev` URL still serves the same site and must keep doing so:
+links to it have already gone out. That is why `workers_dev` is set explicitly
+rather than left to the default — Wrangler turns it off by itself as soon as a
+route is present.
+
+The canonical link and `og:url` on each page name the custom domain, so a
+shared link unfurls under one hostname rather than whichever was used. The
+pages still carry `noindex,nofollow` and `robots.txt` still shuts the search
+crawlers out: this is a pitch demo and stays out of the indexes.
+
 Every fact on the new site traces to `work/brief.json`; the page copy is the
 lab's own, taken verbatim from the Google Site (typos fixed, PI's first-person
 voice normalised to "the lab" in a few places). Unconfirmed facts — the email
