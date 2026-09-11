@@ -4,6 +4,15 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "dynamic-connectome-lab-web",
   "compatibility_date": "2026-09-08",
+  // The custom domain, added in the dashboard and recorded here so the repo
+  // and the deployment agree.
+  "routes": [
+    { "pattern": "dynamic-connectome-lab.basilicalabs.ai", "custom_domain": true }
+  ],
+  // Must stay explicit. Wrangler computes `defaultWorkersDev = routes.length === 0`,
+  // so the moment a route exists an unset workers_dev resolves to false and the
+  // workers.dev URL is withdrawn on the next deploy. Links to it are already out.
+  "workers_dev": true,
   "assets": {
     "directory": "./public",
     // Serve the themed 404 for unknown paths instead of a bare Cloudflare error.
